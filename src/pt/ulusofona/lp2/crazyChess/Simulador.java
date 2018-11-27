@@ -8,16 +8,16 @@ import java.util.Scanner;
 
 public class Simulador {
 
-    int tamanho;
+    int tamanho; // Tamanha do tabuleiro.
     ArrayList<CrazyPiece> pecas = new ArrayList<CrazyPiece>();
-    ArrayList<CrazyPiece> pecasA = new ArrayList<CrazyPiece>();
-    ArrayList<CrazyPiece> pecasB = new ArrayList<CrazyPiece>();
+    ArrayList<CrazyPiece> pecasPretas = new ArrayList<CrazyPiece>();
+    ArrayList<CrazyPiece> pecasBrancas = new ArrayList<CrazyPiece>();
     int turno;
 
    public Simulador(){
 
    }
-   public boolean iniciaJogo(File ficheiroInicial){
+   public boolean iniciaJogo(File ficheiroInicial){ // Função que inicia o jogo.
         try {
             Scanner scannerFicheiro = new Scanner(ficheiroInicial);
             tamanho = Integer.parseInt(scannerFicheiro.nextLine());
@@ -33,9 +33,9 @@ public class Simulador {
                     peca.setAlcunha(coluna[3]);
                     pecas.add(peca);
                     if(peca.idEquipa == 0) {
-                        pecasA.add(peca);
+                        pecasPretas.add(peca);
                     } else {
-                        pecasB.add(peca);
+                        pecasBrancas.add(peca);
                     }
                 }
             }
