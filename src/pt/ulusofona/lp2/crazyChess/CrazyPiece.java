@@ -7,6 +7,10 @@ public class CrazyPiece {
         Posicao() {
 
         }
+        public void setPosicao(int posX, int posY) {
+            this.x = posX;
+            this.y = posY;
+        }
     }
 
     int id;

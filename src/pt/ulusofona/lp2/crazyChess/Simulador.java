@@ -41,6 +41,13 @@ public class Simulador {
             }
             for(int i = 0; i < tamanho; i++) {
                 String linha = scannerFicheiro.nextLine();
+                String coluna[] = linha.split(":");
+                for(int j = 0; j < 4; j++) {
+                    if(!(Integer.parseInt(coluna[j]) == 0)){
+                        pecas.get(Integer.parseInt(coluna[j])-1).posicao.setPosicao(i,j);
+
+                    }
+                }
             }
             turno = 0;
         } catch (FileNotFoundException exception) {
