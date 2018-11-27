@@ -44,7 +44,7 @@ public class Simulador {
                 String coluna[] = linha.split(":");
                 for(int j = 0; j < 4; j++) {
                     if(!(Integer.parseInt(coluna[j]) == 0)){
-                        pecas.get(Integer.parseInt(coluna[j])-1).posicao.setPosicao(i,j);
+                        pecas.get(Integer.parseInt(coluna[j])-1).posicao.setPosicao(j,i);
 
                     }
                 }
@@ -63,12 +63,17 @@ public class Simulador {
 
     public boolean processaJogada(int xO, int yO, int xD, int yD){
         if(xD == xO || xD == xO+1 || xD == xO - 1) {
-            if(yD == yO || yD == yO + 1 || yD == yO - 1) {
-                if (xD == xO && yD == yO) {
-                    return false;
-                } else {
-                    turno++;
-                    return true;
+            for (int i = 0; i < getPecasMalucas().size(); i++){
+                if(getPecasMalucas().get(i).posicao.x == xO && getPecasMalucas().get(i).posicao.y == yO && getPecasMalucas().get(i).getIdEquipa() == getIDEquipaAJogar()){
+                    if(yD == yO || yD == yO + 1 || yD == yO - 1) {
+                        if (xD == xO && yD == yO) {
+                            return false;
+                        } else {
+                            getPecasMalucas().get(i).posicao.setPosicao(xD, yD);
+                            turno++;
+                            return true;
+                        }
+                    }
                 }
             }
         }
@@ -94,6 +99,12 @@ public class Simulador {
     }
 */
     public int getIDPeca (int x, int y){
+        for (int i = 0; i < getPecasMalucas().size(); i++){
+            if(getPecasMalucas().get(i).posicao.x == x && getPecasMalucas().get(i).posicao.y == y){
+                return getPecasMalucas().get(i).getId();
+            }
+        }
+
         return 0;
     }
 

@@ -24,7 +24,7 @@ public class CrazyPiece {
         posicao = new Posicao();
     }
 
-    public int getID(){
+    public int getId(){
         return id;
     }
 
@@ -34,6 +34,10 @@ public class CrazyPiece {
 
     public void setIdTipo(int i) {
         this.idTipo = i;
+    }
+
+    public int getIdEquipa() {
+        return idEquipa;
     }
 
     public void setIdEquipa(int i) {
