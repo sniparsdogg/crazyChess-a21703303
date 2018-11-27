@@ -59,7 +59,7 @@ public class Simulador {
 
     public int getTamanhoTabuleiro(){
         return tamanho;
-    }
+    } // Função que permite obter o tamanho do tabuleiro.
 
     public boolean processaJogada(int xO, int yO, int xD, int yD){
         if(xD == xO || xD == xO+1 || xD == xO - 1) {
@@ -80,13 +80,13 @@ public class Simulador {
         return false;
     }
 
-    public List<CrazyPiece> getPecasMalucas(){
+    public List<CrazyPiece> getPecasMalucas(){ // Devolve as peças.
         return pecas;
     }
 
     public boolean jogoTerminado() {
         return false;
-    }
+    } // Função que termina o jogo.
     public List<String> getAutores(){
         ArrayList<String> autores = new ArrayList<String>();
         autores.add("Augusto Gouveia - 21703303");
@@ -98,7 +98,7 @@ public class Simulador {
 
     }
 */
-    public int getIDPeca (int x, int y){
+    public int getIDPeca (int x, int y){ // Obtém o ID da peça nas coordenadas dadas.
         for (int i = 0; i < getPecasMalucas().size(); i++){
             if(getPecasMalucas().get(i).posicao.x == x && getPecasMalucas().get(i).posicao.y == y){
                 return getPecasMalucas().get(i).getId();
@@ -108,7 +108,7 @@ public class Simulador {
         return 0;
     }
 
-    public int getIDEquipaAJogar() {
+    public int getIDEquipaAJogar() { // Função que retorna qual é a equipa a jogar.
         if(turno % 2 == 0) {
             return 0;
         } else {
