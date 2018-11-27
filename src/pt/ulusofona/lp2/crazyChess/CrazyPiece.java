@@ -11,17 +11,21 @@ public class CrazyPiece {
             this.x = posX;
             this.y = posY;
         }
+        public String toString(){
+            return(x + ", " + y);
+        }
     }
 
     int id;
     int idTipo;
     int idEquipa;
     String alcunha;
-    Posicao posicao;
+    Posicao posicao = new Posicao();
+    boolean capturada;
 
 
     CrazyPiece(){
-        posicao = new Posicao();
+
     }
 
     public int getId(){ // Getter do ID.
@@ -53,7 +57,9 @@ public class CrazyPiece {
     } // Getter da imagem.
 
     public String toString(){
-        return (id + " | " + idTipo + " | " + idEquipa + " | " + alcunha);
+        if(capturada) {
+            return (id + " | " + idTipo + " | " + idEquipa + " | " + alcunha + " @ (n/a)");
+        }
+        return (id + " | " + idTipo + " | " + idEquipa + " | " + alcunha + " @ (" + posicao + ")");
     }
-
 }
