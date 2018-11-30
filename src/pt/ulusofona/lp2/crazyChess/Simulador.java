@@ -13,6 +13,8 @@ public class Simulador {
     ArrayList<CrazyPiece> pecasPretas = new ArrayList<CrazyPiece>();
     ArrayList<CrazyPiece> pecasBrancas = new ArrayList<CrazyPiece>();
     int turno;
+    Resultados resultados = new Resultados();
+
 
    public Simulador(){
 
@@ -42,7 +44,7 @@ public class Simulador {
             for(int i = 0; i < tamanho; i++) {
                 String linha = scannerFicheiro.nextLine();
                 String coluna[] = linha.split(":");
-                for(int j = 0; j < 4; j++) {
+                for(int j = 0; j < tamanho; j++) {
                     if(!(Integer.parseInt(coluna[j]) == 0)){
                         pecas.get(Integer.parseInt(coluna[j])-1).posicao.setPosicao(j,i);
 
@@ -69,6 +71,33 @@ public class Simulador {
                         if (xD == xO && yD == yO) {
                             return false;
                         } else {
+                            for (int j = 0; j < getPecasMalucas().size(); j++) {
+                                if (getPecasMalucas().get(j).posicao.x == xD && getPecasMalucas().get(j).posicao.y == yD && getPecasMalucas().get(j).getIdEquipa() != getIDEquipaAJogar()) {
+                                    if(getPecasMalucas().get(j).getIdEquipa() == 0) {
+                                        for(int k = 0; k < getPecasPretas().size(); k++){
+                                            if(getPecasMalucas().get(j).getAlcunha().equals(getPecasPretas().get(k).getAlcunha())){
+                                                getPecasPretas().remove(k);
+                                                resultados.somaCapturasBrancas();
+
+                                            }
+                                        }
+                                    }
+                                    else {
+                                        for(int k = 0; k < getPecasBrancas().size(); k ++) {
+                                            if(getPecasMalucas().get(j).getAlcunha().equals(getPecasBrancas().get(k).getAlcunha())){
+                                                getPecasBrancas().remove(k);
+                                                resultados.somaCapturasPretas();
+                                            }
+                                        }
+                                    }
+                                    getPecasMalucas().get(j).setCapturada();
+                                }
+                            }
+                            if(getIDEquipaAJogar() == 0) {
+                                resultados.somaValidasPretas();
+                            } else {
+                                resultados.somaValidasBrancas();
+                            }
                             getPecasMalucas().get(i).posicao.setPosicao(xD, yD);
                             turno++;
                             return true;
@@ -77,27 +106,69 @@ public class Simulador {
                 }
             }
         }
+        if(getIDEquipaAJogar() == 0) {
+            resultados.somaInvalidasPretas();
+        } else {
+            resultados.somaInvalidasBrancas();
+        }
         return false;
     }
 
     public List<CrazyPiece> getPecasMalucas(){ // Devolve as peças.
-        return pecas;
+        ArrayList<CrazyPiece> pecasEmJogo = new ArrayList<CrazyPiece>();
+        for(int i = 0; i < pecas.size();i++) {
+            if(!(pecas.get(i).capturada)) {
+                pecasEmJogo.add(pecas.get(i));
+            }
+        }
+        return pecasEmJogo;
     }
 
-    public boolean jogoTerminado() {
+    public List<CrazyPiece> getPecasBrancas(){
+        return pecasBrancas;
+    }
+
+    public List<CrazyPiece> getPecasPretas(){
+        return pecasPretas;
+    }
+
+    public boolean jogoTerminado() {  // Função que determina se o jogo terminou.
+        if(getPecasBrancas().size() == 0 || getPecasPretas().size() == 0){
+            return true;
+        } else if (pecasPretas.size() == 1 && pecasBrancas.size() == 1) {
+            return true;
+        }
         return false;
-    } // Função que termina o jogo.
+    }
+
     public List<String> getAutores(){
         ArrayList<String> autores = new ArrayList<String>();
         autores.add("Augusto Gouveia - 21703303");
         autores.add("Renato Cruz - 21705487");
         return autores;
     }
-/*
+
     public List<String> getResultados(){
+        ArrayList<String> resultadoFinal = new ArrayList<String>();
+        resultadoFinal.add("JOGO DE CRAZY CHESS");
+        if(getPecasPretas().size() < getPecasBrancas().size()){
+            resultadoFinal.add("Resultado: VENCERAM AS PRETAS");
+        } else {
+            resultadoFinal.add("Resultado: VENCERAM AS PRETAS");
+        }
+        resultadoFinal.add("---");
+        resultadoFinal.add("Equipa das Pretas");
+        resultadoFinal.add(Integer.toString(resultados.getCapturasPretas()));
+        resultadoFinal.add(Integer.toString(resultados.getValidasPretas()));
+        resultadoFinal.add(String.valueOf(resultados.getInvalidasPretas()));
+        resultadoFinal.add("Equipa das Brancas");
+        resultadoFinal.add(String.valueOf(resultados.getCapturasBrancas()));
+        resultadoFinal.add(String.valueOf(resultados.getValidasBrancas()));
+        resultadoFinal.add(String.valueOf(resultados.getInvalidasBrancas()));
+        return resultadoFinal;
 
     }
-*/
+
     public int getIDPeca (int x, int y){ // Obtém o ID da peça nas coordenadas dadas.
         for (int i = 0; i < getPecasMalucas().size(); i++){
             if(getPecasMalucas().get(i).posicao.x == x && getPecasMalucas().get(i).posicao.y == y){

@@ -2,8 +2,8 @@ package pt.ulusofona.lp2.crazyChess;
 
 public class CrazyPiece {
     public class Posicao { // Posição das peças.
-        int x;
-        int y;
+        Integer x;
+        Integer y;
         Posicao() {
 
         }
@@ -22,7 +22,8 @@ public class CrazyPiece {
     String alcunha;
     Posicao posicao = new Posicao();
     boolean capturada;
-
+    int x;
+    int y;
 
     CrazyPiece(){
 
@@ -51,6 +52,14 @@ public class CrazyPiece {
     public void setAlcunha(String s) {
         this.alcunha = s;
     } // Setter da Alcunha.
+
+    public String getAlcunha() {
+        return alcunha;
+    }
+
+    public void setCapturada(){
+        capturada = true;
+    }
 
     public String getImagePNG(){
         return null;
