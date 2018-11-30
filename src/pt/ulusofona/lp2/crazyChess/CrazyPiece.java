@@ -61,9 +61,12 @@ public class CrazyPiece {
         capturada = true;
     }
 
-    public String getImagePNG(){
-        return null;
-    } // Getter da imagem.
+    public String getImagePNG(){ // Getter da imagem.
+        if(this.getIdEquipa() == 0) {
+            return("PecasPretas.png");
+        }
+        return("PecasBrancas.png");
+    }
 
     public String toString(){
         if(capturada) {
