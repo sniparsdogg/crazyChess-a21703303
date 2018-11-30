@@ -69,13 +69,13 @@ public class Simulador {
     } // Função que permite obter o tamanho do tabuleiro.
 
     public boolean processaJogada(int xO, int yO, int xD, int yD){
-        if(xD == xO || xD == xO+1 || xD == xO - 1) {
+        if((xD == xO || xD == xO+1 || xD == xO - 1) && (yD == yO || yD == yO+1 || yD == yO-1)) {
             for (int i = 0; i < getPecasMalucas().size(); i++){
                 if(getPecasMalucas().get(i).posicao.x == xO && getPecasMalucas().get(i).posicao.y == yO && getPecasMalucas().get(i).getIdEquipa() == getIDEquipaAJogar()){
-                    if(yD == yO || yD == yO + 1 || yD == yO - 1) {
                         if (xD == xO && yD == yO) {
                             return false;
                         } else {
+                            CrazyPiece pecaAJogar = getPecasMalucas().get(i);
                             for (int j = 0; j < getPecasMalucas().size(); j++) {
                                 if (getPecasMalucas().get(j).posicao.x == xD && getPecasMalucas().get(j).posicao.y == yD && getPecasMalucas().get(j).getIdEquipa() != getIDEquipaAJogar()) {
                                     if(getPecasMalucas().get(j).getIdEquipa() == 0) {
@@ -83,7 +83,6 @@ public class Simulador {
                                             if(getPecasMalucas().get(j).getAlcunha().equals(getPecasPretas().get(k).getAlcunha())){
                                                 getPecasPretas().remove(k);
                                                 resultados.somaCapturasBrancas();
-
                                             }
                                         }
                                     }
@@ -104,13 +103,16 @@ public class Simulador {
                             } else {
                                 resultados.somaValidasBrancas();
                             }
-                            getPecasMalucas().get(i).setPosicao(xD, yD);
+                            for(int k = 0; k < getPecasMalucas().size();k++) {
+                                if(pecaAJogar.getId() == getPecasMalucas().get(k).getId()) {
+                                    getPecasMalucas().get(k).setPosicao(xD, yD);
+                                }
+                            }
                             turno++;
                             turnosSemCapturas++;
                             return true;
                         }
                     }
-                }
             }
         }
         if(getIDEquipaAJogar() == 0) {
