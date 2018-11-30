@@ -69,7 +69,6 @@ public class Simulador {
     } // Função que permite obter o tamanho do tabuleiro.
 
     public boolean processaJogada(int xO, int yO, int xD, int yD){
-        
         if(xD == xO || xD == xO+1 || xD == xO - 1) {
             for (int i = 0; i < getPecasMalucas().size(); i++){
                 if(getPecasMalucas().get(i).posicao.x == xO && getPecasMalucas().get(i).posicao.y == yO && getPecasMalucas().get(i).getIdEquipa() == getIDEquipaAJogar()){
@@ -166,6 +165,8 @@ public class Simulador {
             resultadoFinal.add("Resultado: VENCERAM AS PRETAS");
         } else if (getPecasPretas().size() < getPecasBrancas().size()){
             resultadoFinal.add("Resultado: VENCERAM AS BRANCAS");
+        } else if ((getPecasPretas().size() == 1 && getPecasBrancas().size() == 1) || turnosSemCapturas == 10) {
+            resultadoFinal.add("Resultado: EMPATE");
         }
         resultadoFinal.add("---");
         resultadoFinal.add("Equipa das Pretas");
@@ -191,7 +192,7 @@ public class Simulador {
     }
 
     public int getIDEquipaAJogar() { // Função que retorna qual é a equipa a jogar.
-        if(turno % 2 == 0) {
+        if(turno%2 == 0) {
             return 0;
         } else {
             return 1;
