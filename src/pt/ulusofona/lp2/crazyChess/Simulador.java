@@ -162,12 +162,13 @@ public class Simulador {
     public List<String> getResultados(){
         ArrayList<String> resultadoFinal = new ArrayList<String>();
         resultadoFinal.add("JOGO DE CRAZY CHESS");
-        if(getPecasPretas().size() > getPecasBrancas().size()){
+        if(getPecasPretas().size() == getPecasBrancas().size() || turnosSemCapturas == 11 ) {
+            resultadoFinal.add("Resultado: EMPATE");
+        } else if(getPecasPretas().size() > getPecasBrancas().size()){
             resultadoFinal.add("Resultado: VENCERAM AS PRETAS");
         } else if (getPecasPretas().size() < getPecasBrancas().size()){
             resultadoFinal.add("Resultado: VENCERAM AS BRANCAS");
-        } else if(getPecasPretas().size() == getPecasBrancas().size() || turnosSemCapturas == 11 ) {
-            resultadoFinal.add("Resultado: EMPATE");
+
         }
         resultadoFinal.add("---");
         resultadoFinal.add("Equipa das Pretas");
