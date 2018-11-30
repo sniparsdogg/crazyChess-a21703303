@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class TestCrazyPiece {
+public class TestCrazyPiece { // Teste da função setIdEquipa da classe CrazyPiece.
     @Test
     public void testeEquipa(){
         CrazyPiece pecaTeste = new CrazyPiece();

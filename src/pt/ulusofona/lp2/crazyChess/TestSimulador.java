@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 
 
-public class TestSimulador {
+public class TestSimulador { // Teste da função que determina qual é a equipa a jogar, da classe Simulador.
     @Test
     public void testeMovimento(){
         Simulador simuladorTeste = new Simulador();

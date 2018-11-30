@@ -21,36 +21,36 @@ public class CrazyPiece {
         this.id = i;
     }
 
-    public void setIdTipo(int i) { // Setter do IDTipo.
+    public void setIdTipo(int i) { // Setter do tipo da peça.
         this.idTipo = i;
     }
 
-    public int getIdEquipa() { // Getter do IDEquipa.
+    public int getIdEquipa() { // Getter da equipa da peça.
         return idEquipa;
     }
 
-    public void setIdEquipa(int i) {
+    public void setIdEquipa(int i) { // Setter da equipa da peça.
         this.idEquipa = i;
-    } // Setter do IDEquipa.
+    }
 
-    public void setAlcunha(String s) {
+    public void setAlcunha(String s) { // Setter da alcunha.
         this.alcunha = s;
-    } // Setter da Alcunha.
+    }
 
-    public String getAlcunha() {
+    public String getAlcunha() { // Getter da alcunha.
         return alcunha;
     }
 
-    public void setCapturada(){
+    public void setCapturada() { // Setter do estado de captura da peça.
         capturada = true;
     }
 
-    public void setPosicao(int posX, int posY) { // Determina a posiçao das peças.
+    public void setPosicao(int posX, int posY) { // Setter da posição da peça.
         this.posicao.x = posX;
         this.posicao.y = posY;
     }
 
-    public Posicao getPosicao() {
+    public Posicao getPosicao() { // Getter da posição da peça.
         return posicao;
     }
 
@@ -61,7 +61,7 @@ public class CrazyPiece {
         return("PecasBrancas.png");
     }
 
-    public String toString(){
+    public String toString(){ // Override da string da classe para podermos atribuir à mesma a string requerida pelo enunciado.
         if(capturada) {
             return (id + " | " + idTipo + " | " + idEquipa + " | " + alcunha + " @ (n/a)");
         }
