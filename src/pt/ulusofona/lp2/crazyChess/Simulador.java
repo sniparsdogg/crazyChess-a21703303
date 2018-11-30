@@ -13,6 +13,7 @@ public class Simulador {
     ArrayList<CrazyPiece> pecasPretas = new ArrayList<CrazyPiece>();
     ArrayList<CrazyPiece> pecasBrancas = new ArrayList<CrazyPiece>();
     int turno;
+    int turnosSemCapturas;
     Resultados resultados = new Resultados();
 
 
@@ -46,12 +47,16 @@ public class Simulador {
                 String coluna[] = linha.split(":");
                 for(int j = 0; j < tamanho; j++) {
                     if(!(Integer.parseInt(coluna[j]) == 0)){
-                        pecas.get(Integer.parseInt(coluna[j])-1).posicao.setPosicao(j,i);
-
+                        for(int k = 0; k < getPecasMalucas().size(); k++) {
+                            if (Integer.parseInt(coluna[j]) == getPecasMalucas().get(k).getId()) {
+                                getPecasMalucas().get(k).setPosicao(j, i);
+                            }
+                        }
                     }
                 }
             }
             turno = 0;
+            turnosSemCapturas = 0;
         } catch (FileNotFoundException exception) {
             System.out.println("Erro: o ficheiro " + ficheiroInicial + " não foi encontrado.");
             return false;
@@ -91,6 +96,7 @@ public class Simulador {
                                         }
                                     }
                                     getPecasMalucas().get(j).setCapturada();
+                                    turnosSemCapturas = 0;
                                 }
                             }
                             if(getIDEquipaAJogar() == 0) {
@@ -98,8 +104,9 @@ public class Simulador {
                             } else {
                                 resultados.somaValidasBrancas();
                             }
-                            getPecasMalucas().get(i).posicao.setPosicao(xD, yD);
+                            getPecasMalucas().get(i).setPosicao(xD, yD);
                             turno++;
+                            turnosSemCapturas++;
                             return true;
                         }
                     }
@@ -137,6 +144,8 @@ public class Simulador {
             return true;
         } else if (pecasPretas.size() == 1 && pecasBrancas.size() == 1) {
             return true;
+        } else if (turnosSemCapturas == 10){
+            return true;
         }
         return false;
     }
@@ -154,7 +163,7 @@ public class Simulador {
         if(getPecasPretas().size() < getPecasBrancas().size()){
             resultadoFinal.add("Resultado: VENCERAM AS PRETAS");
         } else {
-            resultadoFinal.add("Resultado: VENCERAM AS PRETAS");
+            resultadoFinal.add("Resultado: VENCERAM AS BRANCAS");
         }
         resultadoFinal.add("---");
         resultadoFinal.add("Equipa das Pretas");

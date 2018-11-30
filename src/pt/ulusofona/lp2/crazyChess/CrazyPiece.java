@@ -7,10 +7,7 @@ public class CrazyPiece {
         Posicao() {
 
         }
-        public void setPosicao(int posX, int posY) { // Determina a posiçao das peças.
-            this.x = posX;
-            this.y = posY;
-        }
+
         public String toString(){
             return(x + ", " + y);
         }
@@ -22,8 +19,6 @@ public class CrazyPiece {
     String alcunha;
     Posicao posicao = new Posicao();
     boolean capturada;
-    int x;
-    int y;
 
     CrazyPiece(){
 
@@ -59,6 +54,11 @@ public class CrazyPiece {
 
     public void setCapturada(){
         capturada = true;
+    }
+
+    public void setPosicao(int posX, int posY) { // Determina a posiçao das peças.
+        this.posicao.x = posX;
+        this.posicao.y = posY;
     }
 
     public String getImagePNG(){ // Getter da imagem.
