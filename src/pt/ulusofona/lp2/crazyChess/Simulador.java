@@ -69,6 +69,7 @@ public class Simulador {
     } // Função que permite obter o tamanho do tabuleiro.
 
     public boolean processaJogada(int xO, int yO, int xD, int yD){
+        
         if(xD == xO || xD == xO+1 || xD == xO - 1) {
             for (int i = 0; i < getPecasMalucas().size(); i++){
                 if(getPecasMalucas().get(i).posicao.x == xO && getPecasMalucas().get(i).posicao.y == yO && getPecasMalucas().get(i).getIdEquipa() == getIDEquipaAJogar()){
@@ -105,8 +106,6 @@ public class Simulador {
                                 resultados.somaValidasBrancas();
                             }
                             getPecasMalucas().get(i).setPosicao(xD, yD);
-                            turno++;
-                            turnosSemCapturas++;
                             return true;
                         }
                     }
@@ -144,10 +143,13 @@ public class Simulador {
             return true;
         } else if (pecasPretas.size() == 1 && pecasBrancas.size() == 1) {
             return true;
-        } else if (turnosSemCapturas == 11){
+        } else if (turnosSemCapturas == 10){
             return true;
         }
+        turno++;
+        turnosSemCapturas++;
         return false;
+
     }
 
     public List<String> getAutores(){
