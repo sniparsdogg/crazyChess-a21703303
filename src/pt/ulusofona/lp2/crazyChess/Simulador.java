@@ -20,6 +20,7 @@ public class Simulador {
    public Simulador(){
 
    }
+
    public boolean iniciaJogo(File ficheiroInicial){ // Função que inicia o jogo.
         try {
             Scanner scannerFicheiro = new Scanner(ficheiroInicial);
@@ -200,5 +201,4 @@ public class Simulador {
             return 1;
         }
     }
-
 }

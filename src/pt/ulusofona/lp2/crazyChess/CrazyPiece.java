@@ -1,17 +1,6 @@
 package pt.ulusofona.lp2.crazyChess;
 
 public class CrazyPiece {
-    public class Posicao { // Posição das peças.
-        Integer x;
-        Integer y;
-        Posicao() {
-
-        }
-
-        public String toString(){
-            return(x + ", " + y);
-        }
-    }
 
     int id;
     int idTipo;
@@ -59,6 +48,10 @@ public class CrazyPiece {
     public void setPosicao(int posX, int posY) { // Determina a posiçao das peças.
         this.posicao.x = posX;
         this.posicao.y = posY;
+    }
+
+    public Posicao getPosicao() {
+        return posicao;
     }
 
     public String getImagePNG(){ // Getter da imagem.
