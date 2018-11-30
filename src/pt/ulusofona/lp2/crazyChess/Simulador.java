@@ -105,6 +105,8 @@ public class Simulador {
                                 resultados.somaValidasBrancas();
                             }
                             getPecasMalucas().get(i).setPosicao(xD, yD);
+                            turno++;
+                            turnosSemCapturas++;
                             return true;
                         }
                     }
@@ -145,10 +147,7 @@ public class Simulador {
         } else if (turnosSemCapturas == 10){
             return true;
         }
-        turno++;
-        turnosSemCapturas++;
         return false;
-
     }
 
     public List<String> getAutores(){
@@ -165,8 +164,6 @@ public class Simulador {
             resultadoFinal.add("Resultado: VENCERAM AS PRETAS");
         } else if (getPecasPretas().size() < getPecasBrancas().size()){
             resultadoFinal.add("Resultado: VENCERAM AS BRANCAS");
-        } else if ((getPecasPretas().size() == 1 && getPecasBrancas().size() == 1) || turnosSemCapturas == 10) {
-            resultadoFinal.add("Resultado: EMPATE");
         }
         resultadoFinal.add("---");
         resultadoFinal.add("Equipa das Pretas");
@@ -192,7 +189,7 @@ public class Simulador {
     }
 
     public int getIDEquipaAJogar() { // Função que retorna qual é a equipa a jogar.
-        if(turno%2 == 0) {
+        if(turno % 2 == 0) {
             return 0;
         } else {
             return 1;
