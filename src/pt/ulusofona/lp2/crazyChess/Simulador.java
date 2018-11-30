@@ -146,7 +146,7 @@ public class Simulador {
             return true;
         } else if (pecasPretas.size() == 1 && pecasBrancas.size() == 1) {
             return true;
-        } else if (turnosSemCapturas == 10){
+        } else if (turnosSemCapturas == 11){
             return true;
         }
         return false;
@@ -166,7 +166,7 @@ public class Simulador {
             resultadoFinal.add("Resultado: VENCERAM AS PRETAS");
         } else if (getPecasPretas().size() < getPecasBrancas().size()){
             resultadoFinal.add("Resultado: VENCERAM AS BRANCAS");
-        } else if(getPecasPretas().size() == getPecasBrancas().size() || turnosSemCapturas == 10 ) {
+        } else if(getPecasPretas().size() == getPecasBrancas().size() || turnosSemCapturas == 11 ) {
             resultadoFinal.add("Resultado: EMPATE");
         }
         resultadoFinal.add("---");
