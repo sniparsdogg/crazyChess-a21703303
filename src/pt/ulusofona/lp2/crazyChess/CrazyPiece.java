@@ -41,8 +41,13 @@ public class CrazyPiece {
         return alcunha;
     }
 
+
     public void setCapturada() { // Setter do estado de captura da peça.
         capturada = true;
+    }
+
+    public boolean getCapturada() {
+        return capturada;
     }
 
     public void setPosicao(int posX, int posY) { // Setter da posição da peça.

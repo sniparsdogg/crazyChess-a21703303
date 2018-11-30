@@ -127,7 +127,7 @@ public class Simulador {
     public List<CrazyPiece> getPecasMalucas(){ // Devolve as peças.
         ArrayList<CrazyPiece> pecasEmJogo = new ArrayList<CrazyPiece>();
         for(int i = 0; i < pecas.size();i++) {
-            if(!(pecas.get(i).capturada)) {
+            if(!(pecas.get(i).getCapturada())) {
                 pecasEmJogo.add(pecas.get(i));
             }
         }
