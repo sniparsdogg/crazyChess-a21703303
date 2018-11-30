@@ -36,11 +36,6 @@ public class Simulador {
                     peca.setIdEquipa(Integer.parseInt(coluna[2]));
                     peca.setAlcunha(coluna[3]);
                     pecas.add(peca);
-                    if(peca.idEquipa == 0) {
-                        pecasPretas.add(peca);
-                    } else {
-                        pecasBrancas.add(peca);
-                    }
                 }
             }
             for(int i = 0; i < tamanho; i++) {
@@ -51,6 +46,11 @@ public class Simulador {
                         for(int k = 0; k < getPecasMalucas().size(); k++) {
                             if (Integer.parseInt(coluna[j]) == getPecasMalucas().get(k).getId()) {
                                 getPecasMalucas().get(k).setPosicao(j, i);
+                                if(getPecasMalucas().get(k).idEquipa == 0) {
+                                    pecasPretas.add(getPecasMalucas().get(k));
+                                } else {
+                                    pecasBrancas.add(getPecasMalucas().get(k));
+                                }
                             }
                         }
                     }
