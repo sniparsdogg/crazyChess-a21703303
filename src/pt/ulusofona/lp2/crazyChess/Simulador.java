@@ -166,6 +166,8 @@ public class Simulador {
             resultadoFinal.add("Resultado: VENCERAM AS PRETAS");
         } else if (getPecasPretas().size() < getPecasBrancas().size()){
             resultadoFinal.add("Resultado: VENCERAM AS BRANCAS");
+        } else if(getPecasPretas().size() == getPecasBrancas().size() || turnosSemCapturas == 10 ) {
+            resultadoFinal.add("Resultado: EMPATE");
         }
         resultadoFinal.add("---");
         resultadoFinal.add("Equipa das Pretas");
