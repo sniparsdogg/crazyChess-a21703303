@@ -8,13 +8,13 @@ import java.util.Scanner;
 
 public class Simulador {
 
-    int tamanho; // Tamanha do tabuleiro.
-    ArrayList<CrazyPiece> pecas = new ArrayList<CrazyPiece>();
-    ArrayList<CrazyPiece> pecasPretas = new ArrayList<CrazyPiece>();
-    ArrayList<CrazyPiece> pecasBrancas = new ArrayList<CrazyPiece>();
-    int turno;
-    int turnosSemCapturas;
-    Resultados resultados = new Resultados();
+    private int tamanho; // Tamanha do tabuleiro.
+    private ArrayList<CrazyPiece> pecas = new ArrayList<CrazyPiece>();
+    private ArrayList<CrazyPiece> pecasPretas = new ArrayList<CrazyPiece>();
+    private ArrayList<CrazyPiece> pecasBrancas = new ArrayList<CrazyPiece>();
+    private int turno;
+    private int turnosSemCapturas;
+    private Resultados resultados = new Resultados();
 
 
    public Simulador(){
