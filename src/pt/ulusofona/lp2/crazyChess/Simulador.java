@@ -144,7 +144,7 @@ public class Simulador {
             return true;
         } else if (pecasPretas.size() == 1 && pecasBrancas.size() == 1) {
             return true;
-        } else if (turnosSemCapturas == 10){
+        } else if (turnosSemCapturas == 11){
             return true;
         }
         return false;
@@ -160,9 +160,9 @@ public class Simulador {
     public List<String> getResultados(){
         ArrayList<String> resultadoFinal = new ArrayList<String>();
         resultadoFinal.add("JOGO DE CRAZY CHESS");
-        if(getPecasPretas().size() < getPecasBrancas().size()){
+        if(getPecasPretas().size() > getPecasBrancas().size()){
             resultadoFinal.add("Resultado: VENCERAM AS PRETAS");
-        } else {
+        } else if (getPecasPretas().size() < getPecasBrancas().size()){
             resultadoFinal.add("Resultado: VENCERAM AS BRANCAS");
         }
         resultadoFinal.add("---");
