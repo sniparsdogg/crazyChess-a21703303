@@ -138,43 +138,42 @@ public class Simulador {
                             return false;
                         } else {
                             CrazyPiece pecaAJogar = getPecasMalucas().get(i);
-                            for (int j = 0; j < getPecasMalucas().size(); j++) {
-                                if(pecaAJogar.jogadaValida(xO, yO, xD, yD, this)){
-
-                                    if (getPecasMalucas().get(j).posicao.x == xD && getPecasMalucas().get(j).posicao.y == yD && getPecasMalucas().get(j).getIdEquipa() != getIDEquipaAJogar()) {
-                                        if(getPecasMalucas().get(j).getIdEquipa() == 0) {
-                                            for(int k = 0; k < getPecasPretas().size(); k++){
-                                                if(getPecasMalucas().get(j).getAlcunha().equals(getPecasPretas().get(k).getAlcunha())){
-                                                    getPecasPretas().remove(k);
-                                                    resultados.somaCapturasBrancas();
+                            if(pecaAJogar.jogadaValida(xO, yO, xD, yD, this)){
+                                for (int j = 0; j < getPecasMalucas().size(); j++) {
+                                        if (getPecasMalucas().get(j).posicao.x == xD && getPecasMalucas().get(j).posicao.y == yD && getPecasMalucas().get(j).getIdEquipa() != getIDEquipaAJogar()) {
+                                            if(getPecasMalucas().get(j).getIdEquipa() == 0) {
+                                                for(int k = 0; k < getPecasPretas().size(); k++){
+                                                    if(getPecasMalucas().get(j).getAlcunha().equals(getPecasPretas().get(k).getAlcunha())){
+                                                        getPecasPretas().remove(k);
+                                                        resultados.somaCapturasBrancas();
+                                                    }
                                                 }
                                             }
-                                        }
-                                        else {
-                                            for(int k = 0; k < getPecasBrancas().size(); k ++) {
-                                                if(getPecasMalucas().get(j).getAlcunha().equals(getPecasBrancas().get(k).getAlcunha())){
-                                                    getPecasBrancas().remove(k);
-                                                    resultados.somaCapturasPretas();
+                                            else {
+                                                for(int k = 0; k < getPecasBrancas().size(); k ++) {
+                                                    if(getPecasMalucas().get(j).getAlcunha().equals(getPecasBrancas().get(k).getAlcunha())){
+                                                        getPecasBrancas().remove(k);
+                                                        resultados.somaCapturasPretas();
+                                                    }
                                                 }
                                             }
+                                            getPecasMalucas().get(j).setCapturada();
+                                            turnosSemCapturas = 0;
                                         }
-                                        getPecasMalucas().get(j).setCapturada();
-                                        turnosSemCapturas = 0;
                                     }
-                                }
-                                if(getIDEquipaAJogar() == 10) {
-                                    resultados.somaValidasPretas();
-                                } else {
-                                    resultados.somaValidasBrancas();
-                                }
-                                for(int k = 0; k < getPecasMalucas().size();k++) {
-                                    if(pecaAJogar.getId() == getPecasMalucas().get(k).getId()) {
-                                        getPecasMalucas().get(k).setPosicao(xD, yD);
+                                    if(getIDEquipaAJogar() == 10) {
+                                        resultados.somaValidasPretas();
+                                    } else {
+                                        resultados.somaValidasBrancas();
                                     }
-                                }
-                                turno++;
-                                turnosSemCapturas++;
-                                return true;
+                                    for(int k = 0; k < getPecasMalucas().size();k++) {
+                                        if(pecaAJogar.getId() == getPecasMalucas().get(k).getId()) {
+                                            getPecasMalucas().get(k).setPosicao(xD, yD);
+                                        }
+                                    }
+                                    turno++;
+                                    turnosSemCapturas++;
+                                    return true;
                             }
                         }
                 }
@@ -221,6 +220,7 @@ public class Simulador {
         autores.add("Augusto Gouveia - 21703303");
         return autores;
     }
+
 
     public List<String> getResultados(){
         ArrayList<String> resultadoFinal = new ArrayList<String>();

@@ -51,9 +51,9 @@ public class Rainha extends CrazyPiece {
                         return false;
                     }
                 }
-            } else {
+            } else { // verificação se a peça a obter é rainha
                 for(int i = 0; i < simulador.getPecasMalucas().size(); i++){
-                    if((simulador.getPecasMalucas().get(i).getPosicao().x == xD && simulador.getPecasMalucas().get(i).getPosicao().y == yD && simulador.getPecasMalucas().get(i).getId() == 1)){
+                    if((simulador.getPecasMalucas().get(i).getPosicao().x == xD && simulador.getPecasMalucas().get(i).getPosicao().y == yD && (simulador.getPecasMalucas().get(i).getId() == 1 || simulador.getPecasMalucas().get(i).getIdEquipa() == this.idEquipa))){
                         return false;
                     }
                 }
