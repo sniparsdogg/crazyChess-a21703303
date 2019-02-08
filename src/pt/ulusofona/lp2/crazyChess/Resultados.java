@@ -9,6 +9,7 @@ public class Resultados {
     int invalidasBrancas = 0;
 
     public Resultados() {
+
     }
 
     public int getCapturasPretas() {

@@ -1,6 +1,6 @@
 package pt.ulusofona.lp2.crazyChess;
 
-public class CrazyPiece {
+public abstract class CrazyPiece {
 
     int id;
     int idTipo;
@@ -23,6 +23,10 @@ public class CrazyPiece {
 
     public void setIdTipo(int i) { // Setter do tipo da peça.
         this.idTipo = i;
+    }
+
+    public int getIdTipo(){
+        return idTipo;
     }
 
     public int getIdEquipa() { // Getter da equipa da peça.
@@ -55,12 +59,14 @@ public class CrazyPiece {
         this.posicao.y = posY;
     }
 
+    public abstract boolean jogadaValida(int xO, int yO, int xD, int yD, Simulador simulador);
+
     public Posicao getPosicao() { // Getter da posição da peça.
         return posicao;
     }
 
     public String getImagePNG(){ // Getter da imagem.
-        if(this.getIdEquipa() == 0) {
+        if(this.getIdEquipa() == 10) {
             return("PecasPretas.png");
         }
         return("PecasBrancas.png");

@@ -30,12 +30,74 @@ public class Simulador {
                 String linha = scannerFicheiro.nextLine();
                 String coluna[] = linha.split(":");
                 if (coluna.length == 4) {
-                    CrazyPiece peca = new CrazyPiece();
-                    peca.setId(Integer.parseInt(coluna[0]));
-                    peca.setIdTipo(Integer.parseInt(coluna[1]));
-                    peca.setIdEquipa(Integer.parseInt(coluna[2]));
-                    peca.setAlcunha(coluna[3]);
-                    pecas.add(peca);
+                    switch(Integer.parseInt(coluna[0])){
+                        case '0':
+                            Rei rei = new Rei();
+                            rei.setId(Integer.parseInt(coluna[0]));
+                            rei.setIdTipo(Integer.parseInt(coluna[1]));
+                            rei.setIdEquipa(Integer.parseInt(coluna[2]));
+                            rei.setAlcunha(coluna[3]);
+                            pecas.add(rei);
+                            break;
+                        case '1':
+                            Rainha rainha = new Rainha();
+                            rainha.setId(Integer.parseInt(coluna[0]));
+                            rainha.setIdTipo(Integer.parseInt(coluna[1]));
+                            rainha.setIdEquipa(Integer.parseInt(coluna[2]));
+                            rainha.setAlcunha(coluna[3]);
+                            pecas.add(rainha);
+                            break;
+                        case '2':
+                            PoneiMagico ponei = new PoneiMagico();
+                            ponei.setId(Integer.parseInt(coluna[0]));
+                            ponei.setIdTipo(Integer.parseInt(coluna[1]));
+                            ponei.setIdEquipa(Integer.parseInt(coluna[2]));
+                            ponei.setAlcunha(coluna[3]);
+                            pecas.add(ponei);
+                            break;
+                        case '3':
+                            PadreVila padre = new PadreVila();
+                            padre.setId(Integer.parseInt(coluna[0]));
+                            padre.setIdTipo(Integer.parseInt(coluna[1]));
+                            padre.setIdEquipa(Integer.parseInt(coluna[2]));
+                            padre.setAlcunha(coluna[3]);
+                            pecas.add(padre);
+                            break;
+                        case '4':
+                            TorreHor torreh = new TorreHor();
+                            torreh.setId(Integer.parseInt(coluna[0]));
+                            torreh.setIdTipo(Integer.parseInt(coluna[1]));
+                            torreh.setIdEquipa(Integer.parseInt(coluna[2]));
+                            torreh.setAlcunha(coluna[3]);
+                            pecas.add(torreh);
+                            break;
+                        case '5':
+                            TorreVert torrev = new TorreVert();
+                            torrev.setId(Integer.parseInt(coluna[0]));
+                            torrev.setIdTipo(Integer.parseInt(coluna[1]));
+                            torrev.setIdEquipa(Integer.parseInt(coluna[2]));
+                            torrev.setAlcunha(coluna[3]);
+                            pecas.add(torrev);
+                            break;
+                        case '6':
+                            Lebre lebre = new Lebre();
+                            lebre.setId(Integer.parseInt(coluna[0]));
+                            lebre.setIdTipo(Integer.parseInt(coluna[1]));
+                            lebre.setIdEquipa(Integer.parseInt(coluna[2]));
+                            lebre.setAlcunha(coluna[3]);
+                            pecas.add(lebre);
+                            break;
+                        case '7':
+                            Joker joker = new Joker();
+                            joker.setId(Integer.parseInt(coluna[0]));
+                            joker.setIdTipo(Integer.parseInt(coluna[1]));
+                            joker.setIdEquipa(Integer.parseInt(coluna[2]));
+                            joker.setAlcunha(coluna[3]);
+                            pecas.add(joker);
+                            break;
+                    }
+
+
                 }
             }
             for(int i = 0; i < tamanho; i++) {
@@ -46,7 +108,7 @@ public class Simulador {
                         for(int k = 0; k < getPecasMalucas().size(); k++) {
                             if (Integer.parseInt(coluna[j]) == getPecasMalucas().get(k).getId()) {
                                 getPecasMalucas().get(k).setPosicao(j, i);
-                                if(getPecasMalucas().get(k).idEquipa == 0) {
+                                if(getPecasMalucas().get(k).getIdEquipa() == 10) {
                                     pecasPretas.add(getPecasMalucas().get(k));
                                 } else {
                                     pecasBrancas.add(getPecasMalucas().get(k));
@@ -70,7 +132,6 @@ public class Simulador {
     } // Função que permite obter o tamanho do tabuleiro.
 
     public boolean processaJogada(int xO, int yO, int xD, int yD){
-        if((xD == xO || xD == xO+1 || xD == xO - 1) && (yD == yO || yD == yO+1 || yD == yO-1)) {
             for (int i = 0; i < getPecasMalucas().size(); i++){
                 if(getPecasMalucas().get(i).posicao.x == xO && getPecasMalucas().get(i).posicao.y == yO && getPecasMalucas().get(i).getIdEquipa() == getIDEquipaAJogar()){
                         if (xD == xO && yD == yO) {
@@ -78,45 +139,47 @@ public class Simulador {
                         } else {
                             CrazyPiece pecaAJogar = getPecasMalucas().get(i);
                             for (int j = 0; j < getPecasMalucas().size(); j++) {
-                                if (getPecasMalucas().get(j).posicao.x == xD && getPecasMalucas().get(j).posicao.y == yD && getPecasMalucas().get(j).getIdEquipa() != getIDEquipaAJogar()) {
-                                    if(getPecasMalucas().get(j).getIdEquipa() == 0) {
-                                        for(int k = 0; k < getPecasPretas().size(); k++){
-                                            if(getPecasMalucas().get(j).getAlcunha().equals(getPecasPretas().get(k).getAlcunha())){
-                                                getPecasPretas().remove(k);
-                                                resultados.somaCapturasBrancas();
+                                if(pecaAJogar.jogadaValida(xO, yO, xD, yD, this)){
+
+                                    if (getPecasMalucas().get(j).posicao.x == xD && getPecasMalucas().get(j).posicao.y == yD && getPecasMalucas().get(j).getIdEquipa() != getIDEquipaAJogar()) {
+                                        if(getPecasMalucas().get(j).getIdEquipa() == 0) {
+                                            for(int k = 0; k < getPecasPretas().size(); k++){
+                                                if(getPecasMalucas().get(j).getAlcunha().equals(getPecasPretas().get(k).getAlcunha())){
+                                                    getPecasPretas().remove(k);
+                                                    resultados.somaCapturasBrancas();
+                                                }
                                             }
                                         }
-                                    }
-                                    else {
-                                        for(int k = 0; k < getPecasBrancas().size(); k ++) {
-                                            if(getPecasMalucas().get(j).getAlcunha().equals(getPecasBrancas().get(k).getAlcunha())){
-                                                getPecasBrancas().remove(k);
-                                                resultados.somaCapturasPretas();
+                                        else {
+                                            for(int k = 0; k < getPecasBrancas().size(); k ++) {
+                                                if(getPecasMalucas().get(j).getAlcunha().equals(getPecasBrancas().get(k).getAlcunha())){
+                                                    getPecasBrancas().remove(k);
+                                                    resultados.somaCapturasPretas();
+                                                }
                                             }
                                         }
+                                        getPecasMalucas().get(j).setCapturada();
+                                        turnosSemCapturas = 0;
                                     }
-                                    getPecasMalucas().get(j).setCapturada();
-                                    turnosSemCapturas = 0;
                                 }
-                            }
-                            if(getIDEquipaAJogar() == 0) {
-                                resultados.somaValidasPretas();
-                            } else {
-                                resultados.somaValidasBrancas();
-                            }
-                            for(int k = 0; k < getPecasMalucas().size();k++) {
-                                if(pecaAJogar.getId() == getPecasMalucas().get(k).getId()) {
-                                    getPecasMalucas().get(k).setPosicao(xD, yD);
+                                if(getIDEquipaAJogar() == 10) {
+                                    resultados.somaValidasPretas();
+                                } else {
+                                    resultados.somaValidasBrancas();
                                 }
+                                for(int k = 0; k < getPecasMalucas().size();k++) {
+                                    if(pecaAJogar.getId() == getPecasMalucas().get(k).getId()) {
+                                        getPecasMalucas().get(k).setPosicao(xD, yD);
+                                    }
+                                }
+                                turno++;
+                                turnosSemCapturas++;
+                                return true;
                             }
-                            turno++;
-                            turnosSemCapturas++;
-                            return true;
                         }
-                    }
+                }
             }
-        }
-        if(getIDEquipaAJogar() == 0) {
+        if(getIDEquipaAJogar() == 10) {
             resultados.somaInvalidasPretas();
         } else {
             resultados.somaInvalidasBrancas();
@@ -156,7 +219,6 @@ public class Simulador {
     public List<String> getAutores(){
         ArrayList<String> autores = new ArrayList<String>();
         autores.add("Augusto Gouveia - 21703303");
-        autores.add("Renato Cruz - 21705487");
         return autores;
     }
 
