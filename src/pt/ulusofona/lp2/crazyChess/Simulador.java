@@ -1,7 +1,9 @@
 package pt.ulusofona.lp2.crazyChess;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -15,6 +17,7 @@ public class Simulador {
     int turno;
     int turnosSemCapturas;
     Resultados resultados = new Resultados();
+    File undo = new File("undo.txt");
 
 
    public Simulador(){
@@ -23,6 +26,10 @@ public class Simulador {
 
    public boolean iniciaJogo(File ficheiroInicial){ // Função que inicia o jogo.
         try {
+            pecas = new ArrayList<CrazyPiece>();
+            pecasPretas = new ArrayList<CrazyPiece>();
+            pecasBrancas = new ArrayList<CrazyPiece>();
+            resultados = new Resultados();
             Scanner scannerFicheiro = new Scanner(ficheiroInicial);
             tamanho = Integer.parseInt(scannerFicheiro.nextLine());
             int pecasEmJogo = Integer.parseInt(scannerFicheiro.nextLine());
@@ -30,8 +37,8 @@ public class Simulador {
                 String linha = scannerFicheiro.nextLine();
                 String coluna[] = linha.split(":");
                 if (coluna.length == 4) {
-                    switch(Integer.parseInt(coluna[0])){
-                        case '0':
+                    switch(Integer.parseInt(coluna[1])){
+                        case 0:
                             Rei rei = new Rei();
                             rei.setId(Integer.parseInt(coluna[0]));
                             rei.setIdTipo(Integer.parseInt(coluna[1]));
@@ -39,7 +46,7 @@ public class Simulador {
                             rei.setAlcunha(coluna[3]);
                             pecas.add(rei);
                             break;
-                        case '1':
+                        case 1:
                             Rainha rainha = new Rainha();
                             rainha.setId(Integer.parseInt(coluna[0]));
                             rainha.setIdTipo(Integer.parseInt(coluna[1]));
@@ -47,7 +54,7 @@ public class Simulador {
                             rainha.setAlcunha(coluna[3]);
                             pecas.add(rainha);
                             break;
-                        case '2':
+                        case 2:
                             PoneiMagico ponei = new PoneiMagico();
                             ponei.setId(Integer.parseInt(coluna[0]));
                             ponei.setIdTipo(Integer.parseInt(coluna[1]));
@@ -55,7 +62,7 @@ public class Simulador {
                             ponei.setAlcunha(coluna[3]);
                             pecas.add(ponei);
                             break;
-                        case '3':
+                        case 3:
                             PadreVila padre = new PadreVila();
                             padre.setId(Integer.parseInt(coluna[0]));
                             padre.setIdTipo(Integer.parseInt(coluna[1]));
@@ -63,7 +70,7 @@ public class Simulador {
                             padre.setAlcunha(coluna[3]);
                             pecas.add(padre);
                             break;
-                        case '4':
+                        case 4:
                             TorreHor torreh = new TorreHor();
                             torreh.setId(Integer.parseInt(coluna[0]));
                             torreh.setIdTipo(Integer.parseInt(coluna[1]));
@@ -71,7 +78,7 @@ public class Simulador {
                             torreh.setAlcunha(coluna[3]);
                             pecas.add(torreh);
                             break;
-                        case '5':
+                        case 5:
                             TorreVert torrev = new TorreVert();
                             torrev.setId(Integer.parseInt(coluna[0]));
                             torrev.setIdTipo(Integer.parseInt(coluna[1]));
@@ -79,7 +86,7 @@ public class Simulador {
                             torrev.setAlcunha(coluna[3]);
                             pecas.add(torrev);
                             break;
-                        case '6':
+                        case 6:
                             Lebre lebre = new Lebre();
                             lebre.setId(Integer.parseInt(coluna[0]));
                             lebre.setIdTipo(Integer.parseInt(coluna[1]));
@@ -87,7 +94,7 @@ public class Simulador {
                             lebre.setAlcunha(coluna[3]);
                             pecas.add(lebre);
                             break;
-                        case '7':
+                        case 7:
                             Joker joker = new Joker();
                             joker.setId(Integer.parseInt(coluna[0]));
                             joker.setIdTipo(Integer.parseInt(coluna[1]));
@@ -118,8 +125,22 @@ public class Simulador {
                     }
                 }
             }
+
             turno = 0;
             turnosSemCapturas = 0;
+
+            if(scannerFicheiro.hasNextLine()){
+                String linhaExtra = scannerFicheiro.nextLine();
+                String coluna[] = linhaExtra.split(":");
+                turno += Integer.parseInt(coluna[1]) + Integer.parseInt(coluna[4]);
+                resultados.setValidasPretas(Integer.parseInt(coluna[1]));
+                resultados.setCapturasPretas(Integer.parseInt(coluna[2]));
+                resultados.setInvalidasPretas(Integer.parseInt(coluna[3]));
+                resultados.setValidasBrancas(Integer.parseInt(coluna[4]));
+                resultados.setCapturasBrancas(Integer.parseInt(coluna[5]));
+                resultados.setInvalidasBrancas(Integer.parseInt(coluna[6]));
+            }
+
         } catch (FileNotFoundException exception) {
             System.out.println("Erro: o ficheiro " + ficheiroInicial + " não foi encontrado.");
             return false;
@@ -132,16 +153,15 @@ public class Simulador {
     } // Função que permite obter o tamanho do tabuleiro.
 
     public boolean processaJogada(int xO, int yO, int xD, int yD){
+
             for (int i = 0; i < getPecasMalucas().size(); i++){
                 if(getPecasMalucas().get(i).posicao.x == xO && getPecasMalucas().get(i).posicao.y == yO && getPecasMalucas().get(i).getIdEquipa() == getIDEquipaAJogar()){
-                        if (xD == xO && yD == yO) {
-                            return false;
-                        } else {
                             CrazyPiece pecaAJogar = getPecasMalucas().get(i);
-                            if(pecaAJogar.jogadaValida(xO, yO, xD, yD, this)){
+                            if(pecaAJogar.jogadaValida(xO, xD, yO, yD, this)){
+                                gravarJogo(undo);
                                 for (int j = 0; j < getPecasMalucas().size(); j++) {
                                         if (getPecasMalucas().get(j).posicao.x == xD && getPecasMalucas().get(j).posicao.y == yD && getPecasMalucas().get(j).getIdEquipa() != getIDEquipaAJogar()) {
-                                            if(getPecasMalucas().get(j).getIdEquipa() == 0) {
+                                            if(getPecasMalucas().get(j).getIdEquipa() == 10) {
                                                 for(int k = 0; k < getPecasPretas().size(); k++){
                                                     if(getPecasMalucas().get(j).getAlcunha().equals(getPecasPretas().get(k).getAlcunha())){
                                                         getPecasPretas().remove(k);
@@ -175,7 +195,7 @@ public class Simulador {
                                     turnosSemCapturas++;
                                     return true;
                             }
-                        }
+
                 }
             }
         if(getIDEquipaAJogar() == 10) {
@@ -221,6 +241,98 @@ public class Simulador {
         return autores;
     }
 
+    public void anularJogadaAnterior(){
+        iniciaJogo(undo);
+    }
+
+    public List<String> obterSugestoesJogada(int xO, int yO){
+        ArrayList<String> sugestoes = new ArrayList<String>();
+        CrazyPiece pecaASugerir = null;
+        for(int i = 0; i < getPecasMalucas().size(); i++) {
+            if(getPecasMalucas().get(i).getPosicao().x == xO && getPecasMalucas().get(i).getPosicao().y == yO){
+                pecaASugerir = getPecasMalucas().get(i);
+            }
+        }
+        if(pecaASugerir == null || pecaASugerir.getIdEquipa() != getIDEquipaAJogar()) {
+            sugestoes.add("Pedido inválido.");
+            return sugestoes;
+        }
+        for(int y = 0; y < getTamanhoTabuleiro(); y++){
+            for(int x = 0; x < getTamanhoTabuleiro(); x++){
+                if(pecaASugerir.jogadaValida(xO, x, yO, y, this)){
+                    sugestoes.add(x + ", " + y);
+                }
+            }
+        }
+        return sugestoes;
+    }
+
+    public CrazyPiece pecaNaPosicao(int posX, int posY){
+        CrazyPiece pecaPosicao = null;
+        for(int i = 0; i < getPecasMalucas().size(); i++) {
+            if(getPecasMalucas().get(i).getPosicao().x == posX && getPecasMalucas().get(i).getPosicao().y == posY){
+                 pecaPosicao = getPecasMalucas().get(i);
+            }
+        }
+    }
+
+    public boolean gravarJogo (File ficheiroDestino) {
+        String newLine = System.getProperty("line.separator");
+        try {
+            File output = new File(String.valueOf(ficheiroDestino));
+            FileWriter writer = new FileWriter(output);
+
+            writer.write(String.valueOf(this.getTamanhoTabuleiro()));
+            System.out.println(this.getTamanhoTabuleiro());
+            writer.write(newLine);
+            writer.write(String.valueOf(this.getPecasMalucas().size()));
+            writer.write(newLine);
+
+            int[][] tabuleiro = new int[getTamanhoTabuleiro()][getTamanhoTabuleiro()];
+            for(int i = 0; i < getPecasMalucas().size(); i++) {
+                writer.write(String.valueOf(getPecasMalucas().get(i).getId()));
+                writer.write(":");
+                writer.write(String.valueOf(getPecasMalucas().get(i).getIdTipo()));
+                writer.write(":");
+                writer.write(String.valueOf(getPecasMalucas().get(i).getIdEquipa()));
+                writer.write(":");
+                writer.write(String.valueOf(getPecasMalucas().get(i).getAlcunha()));
+                writer.write(newLine);
+                tabuleiro[getPecasMalucas().get(i).getPosicao().y][getPecasMalucas().get(i).getPosicao().x] = getPecasMalucas().get(i).getId();
+            }
+
+            for(int i = 0; i < getTamanhoTabuleiro(); i++) {
+                for(int j = 0; j < getTamanhoTabuleiro(); j++) {
+                    writer.write(String.valueOf(tabuleiro[i][j]));
+                    if(j != getTamanhoTabuleiro()-1) {
+                        writer.write(":");
+                    }
+                }
+                writer.write(newLine);
+            }
+
+            writer.write(String.valueOf(getIDEquipaAJogar()));
+            writer.write(":");
+            writer.write(String.valueOf(resultados.getValidasPretas()));
+            writer.write(":");
+            writer.write(String.valueOf(resultados.getCapturasPretas()));
+            writer.write(":");
+            writer.write(String.valueOf(resultados.getInvalidasPretas()));
+            writer.write(":");
+            writer.write(String.valueOf(resultados.getValidasBrancas()));
+            writer.write(":");
+            writer.write(String.valueOf(resultados.getCapturasBrancas()));
+            writer.write(":");
+            writer.write(String.valueOf(resultados.getInvalidasBrancas()));
+
+            writer.close();
+        }
+        catch(IOException e) {
+            System.out.println("Ocorreu um erro ao abrir o ficheiro.");
+            return false;
+        }
+        return true;
+    }
 
     public List<String> getResultados(){
         ArrayList<String> resultadoFinal = new ArrayList<String>();
@@ -258,9 +370,9 @@ public class Simulador {
 
     public int getIDEquipaAJogar() { // Função que retorna qual é a equipa a jogar.
         if(turno % 2 == 0) {
-            return 0;
+            return 10;
         } else {
-            return 1;
+            return 20;
         }
     }
 }

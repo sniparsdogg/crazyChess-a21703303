@@ -1,8 +1,9 @@
 package pt.ulusofona.lp2.crazyChess;
 
-public class Rainha extends CrazyPiece {
-    public boolean jogadaValida(int xO, int xD, int yO, int yD, Simulador simulador) {
-        if((xD <= xO + 5 && xD >= xO - 5) || (yD <= yO + 5 && yD >= yO - 5)) {
+public class RainhaMae extends CrazyPiece {
+    @Override
+    public boolean jogadaValida(int xO, int yO, int xD, int yD, Simulador simulador) {
+        if((xD <= xO + 4 && xD >= xO - 4) || (yD <= yO + 4 && yD >= yO - 4)) {
             if (xD == xO && yD == yO || (xD < 0 || xD > simulador.getTamanhoTabuleiro()) || (yD < 0 || yD > simulador.getTamanhoTabuleiro()) ) {
                 return false;
             }
@@ -69,9 +70,10 @@ public class Rainha extends CrazyPiece {
     @Override
     public String toString() {
         if (this.capturada) {
-            return (this.id + "| Rainha | 8 | " + this.idEquipa + " | " + this.alcunha + " @ (n/a)");
+            return (this.id + "| Rainha Mãe | 7 | " + this.idEquipa + " | " + this.alcunha + " @ (n/a)");
         }
-        return (this.id + " | Rainha | 8 | " + this.idEquipa + " | " + this.alcunha + " @ " + this.posicao);
+        return (this.id + " | Rainha Mãe | 7 | " + this.idEquipa + " | " + this.alcunha + " @ " + this.posicao);
     }
 
 }
+

@@ -12,6 +12,30 @@ public class Resultados {
 
     }
 
+    public void setCapturasPretas(int capturas) {
+        capturasPretas = capturas;
+    }
+
+    public void setCapturasBrancas(int capturas) {
+        capturasBrancas = capturas;
+    }
+
+    public void setValidasPretas(int validas) {
+        validasPretas = validas;
+    }
+
+    public void setValidasBrancas(int validas) {
+        validasBrancas = validas;
+    }
+
+    public void setInvalidasPretas(int invalidas) {
+        invalidasPretas = invalidas;
+    }
+
+    public void setInvalidasBrancas(int invalidas) {
+        invalidasBrancas = invalidas;
+    }
+
     public int getCapturasPretas() {
         return capturasPretas;
     }

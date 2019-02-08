@@ -59,7 +59,7 @@ public abstract class CrazyPiece {
         this.posicao.y = posY;
     }
 
-    public abstract boolean jogadaValida(int xO, int yO, int xD, int yD, Simulador simulador);
+    public abstract boolean jogadaValida(int xO, int xD, int yO, int yD, Simulador simulador);
 
     public Posicao getPosicao() { // Getter da posição da peça.
         return posicao;
