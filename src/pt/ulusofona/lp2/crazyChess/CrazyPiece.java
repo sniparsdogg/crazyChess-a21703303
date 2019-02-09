@@ -84,9 +84,16 @@ public abstract class CrazyPiece {
         return moveInvalidos;
     }
 
-    public double getRacio(){
+    public double getRacioMoves(){
         if(moveValidos > 0 || moveInvalidos > 0) {
             return (double)moveInvalidos/(double)(moveValidos) ;
+        }
+        return 0;
+    }
+
+    public double getRacioPontos(){
+        if(capturas > 0){
+            return (double)pontos/(double)capturas;
         }
         return 0;
     }

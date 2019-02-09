@@ -436,7 +436,7 @@ public class Simulador {
     public List<String> pecasMaisBaralhadas(){
         List<String> query = new ArrayList<>();
         pecas.stream()
-                .sorted(Comparator.comparingDouble(CrazyPiece::getRacio))
+                .sorted(Comparator.comparingDouble(CrazyPiece::getRacioMoves))
                 .limit(3)
                 .forEach((p) -> query.add(p.getIdEquipa() + ":" + p.getAlcunha() + ":" + p.getPontos() + ":" + p.getCapturas()));
         return query;
@@ -456,6 +456,24 @@ public class Simulador {
         return query;
     }
 
+    public List<String> segundasEscolhas(){
+        List<String> query = new ArrayList<>();
+        pecas.stream()
+                .filter((p) -> p.moveValidos == 0)
+                .sorted((p1,p2) -> p1.getAlcunha().compareTo(p2.getAlcunha()))
+                .forEach((p) -> query.add(p.getIdEquipa() + ":" + p.getId() + ":" + p.getAlcunha()));
+        return query;
+    }
+
+    public List<String> mostValuableCrazyPiece(){
+        List<String> query = new ArrayList<>();
+        pecas.stream()
+                .sorted(Comparator.comparingDouble(CrazyPiece::getRacioPontos))
+                .limit(3)
+                .forEach((p) -> query.add(p.getIdEquipa() + ":" + p.getId() + ":" + p.getAlcunha() + ":" + p.getPontos() + ":" + p.getCapturas()));
+        return query;
+    }
+
 
 
 
@@ -466,6 +484,8 @@ public class Simulador {
         estatisticas.put("pecasMais5Capturas", pecasMais5Capturas());
         estatisticas.put("3PecasMaisBaralhadas",pecasMaisBaralhadas());
         estatisticas.put("tiposPecaCapturados", tiposPecaCapturados());
+        estatisticas.put("segundas-escolhas", segundasEscolhas());
+        estatisticas.put("most-valuable-crazy-piece", mostValuableCrazyPiece());
         return estatisticas;
     }
 
