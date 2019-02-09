@@ -12,6 +12,8 @@ public abstract class CrazyPiece {
     int valorRelativo;
     int capturas = 0;
     int pontos = 0;
+    int moveValidos = 0;
+    int moveInvalidos = 0;
 
     CrazyPiece(){
 
@@ -64,6 +66,29 @@ public abstract class CrazyPiece {
 
     public int getPontos(){
         return pontos;
+    }
+
+    public void somaMoveValidos(){
+        moveValidos++;
+    }
+
+    public void somaMoveInvalidos(){
+        moveInvalidos++;
+    }
+
+    public int getMoveValidos(){
+        return moveValidos;
+    }
+
+    public int getMoveInvalidos(){
+        return moveInvalidos;
+    }
+
+    public double getRacio(){
+        if(moveValidos > 0 || moveInvalidos > 0) {
+            return (double)moveInvalidos/(double)(moveValidos) ;
+        }
+        return 0;
     }
 
     public String getAlcunha() { // Getter da alcunha.

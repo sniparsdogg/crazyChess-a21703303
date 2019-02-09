@@ -2,7 +2,7 @@ package pt.ulusofona.lp2.crazyChess;
 
 public class Rei extends CrazyPiece {
 
-    int valorRelativo = Integer.MAX_VALUE;
+    int valorRelativo = 1000;
 
     public boolean jogadaValida(int xO, int xD, int yO, int yD, Simulador simulador) {
         if ((xD == xO || xD == xO + 1 || xD == xO - 1) && (yD == yO || yD == yO + 1 || yD == yO - 1)) {

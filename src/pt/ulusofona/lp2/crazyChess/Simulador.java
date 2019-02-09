@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Comparator;
+import static java.util.stream.Collectors.summingInt;
 
 public class Simulador {
 
@@ -166,6 +168,9 @@ public class Simulador {
                 resultados.setValidasBrancas(Integer.parseInt(coluna5[4]));
                 resultados.setCapturasBrancas(Integer.parseInt(coluna5[5]));
                 resultados.setInvalidasBrancas(Integer.parseInt(coluna5[6]));
+                if(coluna5[7] != null){
+                    turnosSemCapturas = Integer.parseInt(coluna5[7]);
+                }
             }
 
         } catch (IOException exception) {
@@ -213,6 +218,7 @@ public class Simulador {
                                     } else {
                                         resultados.somaValidasBrancas();
                                     }
+                                    pecaAJogar.somaMoveValidos();
                                     for(int k = 0; k < getPecasMalucas().size();k++) {
                                         if(pecaAJogar.getId() == getPecasMalucas().get(k).getId()) {
                                             getPecasMalucas().get(k).setPosicao(xD, yD);
@@ -223,14 +229,16 @@ public class Simulador {
 
                                     return true;
                             }
+                    if(getIDEquipaAJogar() == 10) {
+                        resultados.somaInvalidasPretas();
+                    } else {
+                        resultados.somaInvalidasBrancas();
+                    }
+                    pecaAJogar.somaMoveInvalidos();
 
                 }
             }
-        if(getIDEquipaAJogar() == 10) {
-            resultados.somaInvalidasPretas();
-        } else {
-            resultados.somaInvalidasBrancas();
-        }
+
         return false;
     }
 
@@ -362,6 +370,8 @@ public class Simulador {
             writer.write(String.valueOf(resultados.getCapturasBrancas()));
             writer.write(":");
             writer.write(String.valueOf(resultados.getInvalidasBrancas()));
+            writer.write(":");
+            writer.write(String.valueOf(turnosSemCapturas));
 
             writer.close();
         }
@@ -397,21 +407,21 @@ public class Simulador {
     }
 
     public List<String> top5Capturas() {
-        List<String> capturas = new ArrayList<>();
+        List<String> query = new ArrayList<>();
         pecas.stream()
                 .sorted((p1, p2) -> p1.getCapturas() - p2.getCapturas())
                 .limit(5)
-                .forEach((p) -> capturas.add(p.getIdEquipa() + ":" + p.getAlcunha() + ":" + p.getPontos() + ":" + p.getCapturas()));
-        return capturas;
+                .forEach((p) -> query.add(p.getIdEquipa() + ":" + p.getAlcunha() + ":" + p.getPontos() + ":" + p.getCapturas()));
+        return query;
     }
 
     public List<String> top5Pontos(){
-        List<String> pontos = new ArrayList<>();
+        List<String> query = new ArrayList<>();
         pecas.stream()
                 .sorted((p1, p2) -> p1.getPontos() - p2.getPontos())
                 .limit(5)
-                .forEach((p) -> pontos.add(p.getIdEquipa() + ":" + p.getAlcunha() + ":" + p.getPontos() + ":" + p.getCapturas()));
-        return pontos;
+                .forEach((p) -> query.add(p.getIdEquipa() + ":" + p.getAlcunha() + ":" + p.getPontos() + ":" + p.getCapturas()));
+        return query;
     }
 
     public List<String> pecasMais5Capturas(){
@@ -423,8 +433,39 @@ public class Simulador {
         return query;
     }
 
+    public List<String> pecasMaisBaralhadas(){
+        List<String> query = new ArrayList<>();
+        pecas.stream()
+                .sorted(Comparator.comparingDouble(CrazyPiece::getRacio))
+                .limit(3)
+                .forEach((p) -> query.add(p.getIdEquipa() + ":" + p.getAlcunha() + ":" + p.getPontos() + ":" + p.getCapturas()));
+        return query;
+    }
+
+    public List<String> tiposPecaCapturados(){
+        List<String> query = new ArrayList<>();
+        for(int i = 0; i < 8; i++){
+            int count = i;
+            int somaCapturas = pecas.stream()
+                    .filter((p) -> p.getIdTipo() == count)
+                    .collect(summingInt(CrazyPiece::getCapturas));
+            if(somaCapturas != 0){
+                query.add(i, String.valueOf(somaCapturas));
+            }
+        }
+        return query;
+    }
+
+
+
+
     public Map<String,List<String>> getEstatisticas() {
         HashMap<String, List<String>> estatisticas = new HashMap<>();
+        estatisticas.put("top5Capturas", top5Capturas());
+        estatisticas.put("top5Pontos", top5Pontos());
+        estatisticas.put("pecasMais5Capturas", pecasMais5Capturas());
+        estatisticas.put("3PecasMaisBaralhadas",pecasMaisBaralhadas());
+        estatisticas.put("tiposPecaCapturados", tiposPecaCapturados());
         return estatisticas;
     }
 
