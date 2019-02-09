@@ -100,6 +100,7 @@ public class Simulador {
                             joker.setIdTipo(Integer.parseInt(coluna[1]));
                             joker.setIdEquipa(Integer.parseInt(coluna[2]));
                             joker.setAlcunha(coluna[3]);
+                            joker.setJoker();
                             pecas.add(joker);
                             break;
                     }
@@ -193,6 +194,7 @@ public class Simulador {
                                     }
                                     turno++;
                                     turnosSemCapturas++;
+
                                     return true;
                             }
 
@@ -274,6 +276,7 @@ public class Simulador {
                  pecaPosicao = getPecasMalucas().get(i);
             }
         }
+        return pecaPosicao;
     }
 
     public boolean gravarJogo (File ficheiroDestino) {
@@ -292,7 +295,11 @@ public class Simulador {
             for(int i = 0; i < getPecasMalucas().size(); i++) {
                 writer.write(String.valueOf(getPecasMalucas().get(i).getId()));
                 writer.write(":");
-                writer.write(String.valueOf(getPecasMalucas().get(i).getIdTipo()));
+                if(getPecasMalucas().get(i).getJoker()) {
+                    writer.write("7");
+                } else {
+                    writer.write(String.valueOf(getPecasMalucas().get(i).getIdTipo()));
+                }
                 writer.write(":");
                 writer.write(String.valueOf(getPecasMalucas().get(i).getIdEquipa()));
                 writer.write(":");

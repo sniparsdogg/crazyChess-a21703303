@@ -8,10 +8,12 @@ public abstract class CrazyPiece {
     String alcunha;
     Posicao posicao = new Posicao();
     boolean capturada;
+    boolean joker = false;
 
     CrazyPiece(){
 
     }
+
 
     public int getId(){ // Getter do ID.
         return id;
@@ -63,6 +65,14 @@ public abstract class CrazyPiece {
 
     public Posicao getPosicao() { // Getter da posição da peça.
         return posicao;
+    }
+
+    public void setJoker(){
+        joker = true;
+    }
+
+    public boolean getJoker(){
+        return joker;
     }
 
     public String getImagePNG(){ // Getter da imagem.

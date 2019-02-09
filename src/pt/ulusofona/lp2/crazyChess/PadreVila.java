@@ -34,9 +34,33 @@ public class PadreVila extends CrazyPiece {
                         }
                     }
                     }
+                    CrazyPiece pecaATestar = simulador.pecaNaPosicao(this.posicao.x - 1, this.posicao.y -1);
+                    if(pecaATestar.getIdTipo() != 1 ){
+                        pecaATestar = simulador.pecaNaPosicao(this.posicao.x, this.posicao.y - 1);
+                        if(pecaATestar.getIdTipo() != 1){
+                            pecaATestar = simulador.pecaNaPosicao(this.posicao.x + 1, this.posicao.y -1);
+                            if(pecaATestar.getIdTipo() != 1) {
+                                pecaATestar = simulador.pecaNaPosicao(this.posicao.x + 1, this.posicao.y);
+                                if(pecaATestar.getIdTipo() != 1){
+                                    pecaATestar = simulador.pecaNaPosicao(this.posicao.x + 1, this.posicao.y + 1);
+                                    if(pecaATestar.getIdTipo() != 1){
+                                        pecaATestar = simulador.pecaNaPosicao(this.posicao.x, this.posicao.y + 1);
+                                        if(pecaATestar.getIdTipo() != 1){
+                                            pecaATestar = simulador.pecaNaPosicao(this.posicao.x - 1, this.posicao.y + 1);
+                                            if(pecaATestar.getIdTipo() != 1){
+                                                pecaATestar = simulador.pecaNaPosicao(this.posicao.x + 1, this.posicao.y);
+                                                if(pecaATestar.getIdTipo() != 1){
+                                                    return true;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                }
+                            }
+                        }
+                    }
                 }
-                return true;
-            }
         return false;
     }
 
