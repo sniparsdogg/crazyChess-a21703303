@@ -29,7 +29,7 @@ public class Simulador {
 
    }
 
-   public void iniciaJogo(File ficheiroInicial){ // Função que inicia o jogo.
+   public void iniciaJogo(File ficheiroInicial) throws IOException, InvalidSimulatorInputException { // Função que inicia o jogo.
         try {
             pecas = new ArrayList<CrazyPiece>();
             pecasPretas = new ArrayList<CrazyPiece>();
@@ -277,7 +277,7 @@ public class Simulador {
         return autores;
     }
 
-    public void anularJogadaAnterior() {
+    public void anularJogadaAnterior() throws IOException, InvalidSimulatorInputException {
             iniciaJogo(undo);
     }
 
