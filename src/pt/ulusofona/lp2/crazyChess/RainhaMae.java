@@ -1,6 +1,6 @@
 package pt.ulusofona.lp2.crazyChess;
-
 public class RainhaMae extends CrazyPiece {
+    int valorRelativo = 7;
     int movimentos = 0;
     public void somarMovimentos(){
         movimentos++;
@@ -70,6 +70,10 @@ public class RainhaMae extends CrazyPiece {
             return true;
         }
         return false;
+    }
+
+    public int getValorRelativo(){
+        return valorRelativo;
     }
 
     @Override

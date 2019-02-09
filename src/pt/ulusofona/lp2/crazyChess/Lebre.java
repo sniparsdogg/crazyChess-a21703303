@@ -1,6 +1,7 @@
 package pt.ulusofona.lp2.crazyChess;
 
 public class Lebre extends CrazyPiece {
+    int valorRelativo = 2;
     public boolean jogadaValida(int xO, int xD, int yO, int yD, Simulador simulador) {
         if (simulador.turno % 2 != 0) {
             if ((xD == xO - 1 || xD == xO + 1) && (yD == yO - 1 || yD == yO + 1)) {
@@ -16,6 +17,10 @@ public class Lebre extends CrazyPiece {
             }
         }
         return false;
+    }
+
+    public int getValorRelativo(){
+        return valorRelativo;
     }
 
     @Override

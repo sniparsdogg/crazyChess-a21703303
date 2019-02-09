@@ -1,6 +1,9 @@
 package pt.ulusofona.lp2.crazyChess;
 
 public class Rei extends CrazyPiece {
+
+    int valorRelativo = Integer.MAX_VALUE;
+
     public boolean jogadaValida(int xO, int xD, int yO, int yD, Simulador simulador) {
         if ((xD == xO || xD == xO + 1 || xD == xO - 1) && (yD == yO || yD == yO + 1 || yD == yO - 1)) {
             if (xD == xO && yD == yO || (xD < 0 || xD > simulador.getTamanhoTabuleiro()) || (yD < 0 || yD > simulador.getTamanhoTabuleiro()) ) {
@@ -14,6 +17,10 @@ public class Rei extends CrazyPiece {
             return true;
         }
         return false;
+    }
+
+    public int getValorRelativo(){
+        return valorRelativo;
     }
 
     @Override

@@ -9,6 +9,9 @@ public abstract class CrazyPiece {
     Posicao posicao = new Posicao();
     boolean capturada;
     boolean joker = false;
+    int valorRelativo;
+    int capturas = 0;
+    int pontos = 0;
 
     CrazyPiece(){
 
@@ -41,6 +44,26 @@ public abstract class CrazyPiece {
 
     public void setAlcunha(String s) { // Setter da alcunha.
         this.alcunha = s;
+    }
+
+    public int getValorRelativo(){
+        return valorRelativo;
+    }
+
+    public int getCapturas(){
+        return capturas;
+    }
+
+    public void somaCapturas(){
+        capturas++;
+    }
+
+    public void somaPontos(int pontosASomar){
+        this.pontos += pontosASomar;
+    }
+
+    public int getPontos(){
+        return pontos;
     }
 
     public String getAlcunha() { // Getter da alcunha.

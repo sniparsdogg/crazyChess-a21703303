@@ -1,6 +1,7 @@
 package pt.ulusofona.lp2.crazyChess;
 
 public class TorreVert extends CrazyPiece {
+    int valorRelativo = 3;
     public boolean jogadaValida(int xO, int xD, int yO, int yD, Simulador simulador) {
         if(xD == xO) {
             if (xD == xO && yD == yO || (xD < 0 || xD > simulador.getTamanhoTabuleiro()) || (yD < 0 || yD > simulador.getTamanhoTabuleiro()) ) {
@@ -28,6 +29,10 @@ public class TorreVert extends CrazyPiece {
             return true;
         }
         return false;
+    }
+
+    public int getValorRelativo(){
+        return valorRelativo;
     }
 
     @Override

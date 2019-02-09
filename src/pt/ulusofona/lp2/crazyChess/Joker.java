@@ -2,7 +2,7 @@ package pt.ulusofona.lp2.crazyChess;
 
 
 public class Joker extends CrazyPiece {
-
+    int valorRelativo = 4;
     int tipoJoker = 1;
 
     public void incrementaTipoJoker(){
@@ -109,6 +109,10 @@ public class Joker extends CrazyPiece {
                 return movimento.jogadaValida(xO, xD, yO, yD, simulador);
         }
         return false;
+    }
+
+    public int getValorRelativo(){
+        return valorRelativo;
     }
 
 

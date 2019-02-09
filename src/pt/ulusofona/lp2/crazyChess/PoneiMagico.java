@@ -1,6 +1,7 @@
 package pt.ulusofona.lp2.crazyChess;
 
 public class PoneiMagico extends CrazyPiece {
+    int valorRelativo = 5;
     public boolean jogadaValida(int xO, int xD, int yO, int yD, Simulador simulador) {
 
         if((xD == xO + 2 || xD == xO - 2) && (yD == yO + 2 || yD == yO - 2)){
@@ -98,6 +99,10 @@ public class PoneiMagico extends CrazyPiece {
             }
         }
         return false;
+    }
+
+    public int getValorRelativo(){
+        return valorRelativo;
     }
 
     @Override

@@ -5,8 +5,11 @@ import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Map;
+import java.util.HashMap;
 
 public class Simulador {
 
@@ -24,84 +27,107 @@ public class Simulador {
 
    }
 
-   public boolean iniciaJogo(File ficheiroInicial){ // Função que inicia o jogo.
+   public void iniciaJogo(File ficheiroInicial){ // Função que inicia o jogo.
         try {
             pecas = new ArrayList<CrazyPiece>();
             pecasPretas = new ArrayList<CrazyPiece>();
             pecasBrancas = new ArrayList<CrazyPiece>();
             resultados = new Resultados();
             Scanner scannerFicheiro = new Scanner(ficheiroInicial);
-            tamanho = Integer.parseInt(scannerFicheiro.nextLine());
-            int pecasEmJogo = Integer.parseInt(scannerFicheiro.nextLine());
+            String linha = scannerFicheiro.nextLine();
+            String coluna[] = linha.split(":");
+            if(coluna.length != 1){
+                throw new InvalidSimulatorInputException(1, coluna.length);
+            } else {
+                tamanho = Integer.parseInt(coluna[0]);
+            }
+            linha = scannerFicheiro.nextLine();
+            String coluna2[] = linha.split(":");
+            int pecasEmJogo;
+            if(coluna2.length != 1){
+                throw new InvalidSimulatorInputException(2, coluna2.length);
+            } else {
+                pecasEmJogo = Integer.parseInt(coluna2[0]);
+            }
             for (int i = 0; i < pecasEmJogo; i++) {
-                String linha = scannerFicheiro.nextLine();
-                String coluna[] = linha.split(":");
-                if (coluna.length == 4) {
-                    switch(Integer.parseInt(coluna[1])){
+                linha = scannerFicheiro.nextLine();
+                String coluna3[] = linha.split(":");
+                if (coluna3.length != 4) {
+                    throw new InvalidSimulatorInputException(i + 2, coluna3.length);
+                } else {
+                    switch(Integer.parseInt(coluna3[1])){
                         case 0:
                             Rei rei = new Rei();
-                            rei.setId(Integer.parseInt(coluna[0]));
-                            rei.setIdTipo(Integer.parseInt(coluna[1]));
-                            rei.setIdEquipa(Integer.parseInt(coluna[2]));
-                            rei.setAlcunha(coluna[3]);
+                            rei.setId(Integer.parseInt(coluna3[0]));
+                            rei.setIdTipo(Integer.parseInt(coluna3[1]));
+                            rei.setIdEquipa(Integer.parseInt(coluna3[2]));
+                            rei.setAlcunha(coluna3[3]);
                             pecas.add(rei);
                             break;
                         case 1:
                             Rainha rainha = new Rainha();
-                            rainha.setId(Integer.parseInt(coluna[0]));
-                            rainha.setIdTipo(Integer.parseInt(coluna[1]));
-                            rainha.setIdEquipa(Integer.parseInt(coluna[2]));
-                            rainha.setAlcunha(coluna[3]);
+                            rainha.setId(Integer.parseInt(coluna3[0]));
+                            rainha.setIdTipo(Integer.parseInt(coluna3[1]));
+                            rainha.setIdEquipa(Integer.parseInt(coluna3[2]));
+                            rainha.setAlcunha(coluna3[3]);
                             pecas.add(rainha);
                             break;
                         case 2:
                             PoneiMagico ponei = new PoneiMagico();
-                            ponei.setId(Integer.parseInt(coluna[0]));
-                            ponei.setIdTipo(Integer.parseInt(coluna[1]));
-                            ponei.setIdEquipa(Integer.parseInt(coluna[2]));
-                            ponei.setAlcunha(coluna[3]);
+                            ponei.setId(Integer.parseInt(coluna3[0]));
+                            ponei.setIdTipo(Integer.parseInt(coluna3[1]));
+                            ponei.setIdEquipa(Integer.parseInt(coluna3[2]));
+                            ponei.setAlcunha(coluna3[3]);
                             pecas.add(ponei);
                             break;
                         case 3:
                             PadreVila padre = new PadreVila();
-                            padre.setId(Integer.parseInt(coluna[0]));
-                            padre.setIdTipo(Integer.parseInt(coluna[1]));
-                            padre.setIdEquipa(Integer.parseInt(coluna[2]));
-                            padre.setAlcunha(coluna[3]);
+                            padre.setId(Integer.parseInt(coluna3[0]));
+                            padre.setIdTipo(Integer.parseInt(coluna3[1]));
+                            padre.setIdEquipa(Integer.parseInt(coluna3[2]));
+                            padre.setAlcunha(coluna3[3]);
                             pecas.add(padre);
                             break;
                         case 4:
                             TorreHor torreh = new TorreHor();
-                            torreh.setId(Integer.parseInt(coluna[0]));
-                            torreh.setIdTipo(Integer.parseInt(coluna[1]));
-                            torreh.setIdEquipa(Integer.parseInt(coluna[2]));
-                            torreh.setAlcunha(coluna[3]);
+                            torreh.setId(Integer.parseInt(coluna3[0]));
+                            torreh.setIdTipo(Integer.parseInt(coluna3[1]));
+                            torreh.setIdEquipa(Integer.parseInt(coluna3[2]));
+                            torreh.setAlcunha(coluna3[3]);
                             pecas.add(torreh);
                             break;
                         case 5:
                             TorreVert torrev = new TorreVert();
-                            torrev.setId(Integer.parseInt(coluna[0]));
-                            torrev.setIdTipo(Integer.parseInt(coluna[1]));
-                            torrev.setIdEquipa(Integer.parseInt(coluna[2]));
-                            torrev.setAlcunha(coluna[3]);
+                            torrev.setId(Integer.parseInt(coluna3[0]));
+                            torrev.setIdTipo(Integer.parseInt(coluna3[1]));
+                            torrev.setIdEquipa(Integer.parseInt(coluna3[2]));
+                            torrev.setAlcunha(coluna3[3]);
                             pecas.add(torrev);
                             break;
                         case 6:
                             Lebre lebre = new Lebre();
-                            lebre.setId(Integer.parseInt(coluna[0]));
-                            lebre.setIdTipo(Integer.parseInt(coluna[1]));
-                            lebre.setIdEquipa(Integer.parseInt(coluna[2]));
-                            lebre.setAlcunha(coluna[3]);
+                            lebre.setId(Integer.parseInt(coluna3[0]));
+                            lebre.setIdTipo(Integer.parseInt(coluna3[1]));
+                            lebre.setIdEquipa(Integer.parseInt(coluna3[2]));
+                            lebre.setAlcunha(coluna3[3]);
                             pecas.add(lebre);
                             break;
                         case 7:
                             Joker joker = new Joker();
-                            joker.setId(Integer.parseInt(coluna[0]));
-                            joker.setIdTipo(Integer.parseInt(coluna[1]));
-                            joker.setIdEquipa(Integer.parseInt(coluna[2]));
-                            joker.setAlcunha(coluna[3]);
+                            joker.setId(Integer.parseInt(coluna3[0]));
+                            joker.setIdTipo(Integer.parseInt(coluna3[1]));
+                            joker.setIdEquipa(Integer.parseInt(coluna3[2]));
+                            joker.setAlcunha(coluna3[3]);
                             joker.setJoker();
                             pecas.add(joker);
+                            break;
+                        case 9:
+                            RainhaMae rainhamae = new RainhaMae();
+                            rainhamae.setId(Integer.parseInt(coluna3[0]));
+                            rainhamae.setIdTipo(Integer.parseInt(coluna3[1]));
+                            rainhamae.setIdEquipa(Integer.parseInt(coluna3[2]));
+                            rainhamae.setAlcunha(coluna3[3]);
+                            pecas.add(rainhamae);
                             break;
                     }
 
@@ -109,12 +135,12 @@ public class Simulador {
                 }
             }
             for(int i = 0; i < tamanho; i++) {
-                String linha = scannerFicheiro.nextLine();
-                String coluna[] = linha.split(":");
+                String linha2 = scannerFicheiro.nextLine();
+                String coluna4[] = linha2.split(":");
                 for(int j = 0; j < tamanho; j++) {
-                    if(!(Integer.parseInt(coluna[j]) == 0)){
+                    if(!(Integer.parseInt(coluna4[j]) == 0)){
                         for(int k = 0; k < getPecasMalucas().size(); k++) {
-                            if (Integer.parseInt(coluna[j]) == getPecasMalucas().get(k).getId()) {
+                            if (Integer.parseInt(coluna4[j]) == getPecasMalucas().get(k).getId()) {
                                 getPecasMalucas().get(k).setPosicao(j, i);
                                 if(getPecasMalucas().get(k).getIdEquipa() == 10) {
                                     pecasPretas.add(getPecasMalucas().get(k));
@@ -132,21 +158,19 @@ public class Simulador {
 
             if(scannerFicheiro.hasNextLine()){
                 String linhaExtra = scannerFicheiro.nextLine();
-                String coluna[] = linhaExtra.split(":");
-                turno += Integer.parseInt(coluna[1]) + Integer.parseInt(coluna[4]);
-                resultados.setValidasPretas(Integer.parseInt(coluna[1]));
-                resultados.setCapturasPretas(Integer.parseInt(coluna[2]));
-                resultados.setInvalidasPretas(Integer.parseInt(coluna[3]));
-                resultados.setValidasBrancas(Integer.parseInt(coluna[4]));
-                resultados.setCapturasBrancas(Integer.parseInt(coluna[5]));
-                resultados.setInvalidasBrancas(Integer.parseInt(coluna[6]));
+                String coluna5[] = linhaExtra.split(":");
+                turno += Integer.parseInt(coluna5[1]) + Integer.parseInt(coluna5[4]);
+                resultados.setValidasPretas(Integer.parseInt(coluna5[1]));
+                resultados.setCapturasPretas(Integer.parseInt(coluna5[2]));
+                resultados.setInvalidasPretas(Integer.parseInt(coluna5[3]));
+                resultados.setValidasBrancas(Integer.parseInt(coluna5[4]));
+                resultados.setCapturasBrancas(Integer.parseInt(coluna5[5]));
+                resultados.setInvalidasBrancas(Integer.parseInt(coluna5[6]));
             }
 
-        } catch (FileNotFoundException exception) {
+        } catch (IOException exception) {
             System.out.println("Erro: o ficheiro " + ficheiroInicial + " não foi encontrado.");
-            return false;
         }
-        return true;
     }
 
     public int getTamanhoTabuleiro(){
@@ -180,6 +204,8 @@ public class Simulador {
                                             }
                                             getPecasMalucas().get(j).setCapturada();
                                             turnosSemCapturas = 0;
+                                            pecaAJogar.somaCapturas();
+                                            pecaAJogar.somaPontos(getPecasMalucas().get(j).getValorRelativo());
                                         }
                                     }
                                     if(getIDEquipaAJogar() == 10) {
@@ -243,12 +269,12 @@ public class Simulador {
         return autores;
     }
 
-    public void anularJogadaAnterior(){
-        iniciaJogo(undo);
+    public void anularJogadaAnterior() {
+            iniciaJogo(undo);
     }
 
-    public List<String> obterSugestoesJogada(int xO, int yO){
-        ArrayList<String> sugestoes = new ArrayList<String>();
+    public List<Comparable> obterSugestoesJogada(int xO, int yO){
+        ArrayList<Comparable> sugestoes = new ArrayList<Comparable>();
         CrazyPiece pecaASugerir = null;
         for(int i = 0; i < getPecasMalucas().size(); i++) {
             if(getPecasMalucas().get(i).getPosicao().x == xO && getPecasMalucas().get(i).getPosicao().y == yO){
@@ -256,16 +282,21 @@ public class Simulador {
             }
         }
         if(pecaASugerir == null || pecaASugerir.getIdEquipa() != getIDEquipaAJogar()) {
-            sugestoes.add("Pedido inválido.");
             return sugestoes;
         }
         for(int y = 0; y < getTamanhoTabuleiro(); y++){
             for(int x = 0; x < getTamanhoTabuleiro(); x++){
                 if(pecaASugerir.jogadaValida(xO, x, yO, y, this)){
-                    sugestoes.add(x + ", " + y);
+                    CrazyPiece existePeca = pecaNaPosicao(x,y);
+                    if(existePeca == null) {
+                        sugestoes.add(new Sugestao(x, y, 0));
+                    } else {
+                        sugestoes.add(new Sugestao(x, y, existePeca.getValorRelativo()));
+                    }
                 }
             }
         }
+        Collections.sort(sugestoes);
         return sugestoes;
     }
 
@@ -364,6 +395,40 @@ public class Simulador {
         return resultadoFinal;
 
     }
+
+    public List<String> top5Capturas() {
+        List<String> capturas = new ArrayList<>();
+        pecas.stream()
+                .sorted((p1, p2) -> p1.getCapturas() - p2.getCapturas())
+                .limit(5)
+                .forEach((p) -> capturas.add(p.getIdEquipa() + ":" + p.getAlcunha() + ":" + p.getPontos() + ":" + p.getCapturas()));
+        return capturas;
+    }
+
+    public List<String> top5Pontos(){
+        List<String> pontos = new ArrayList<>();
+        pecas.stream()
+                .sorted((p1, p2) -> p1.getPontos() - p2.getPontos())
+                .limit(5)
+                .forEach((p) -> pontos.add(p.getIdEquipa() + ":" + p.getAlcunha() + ":" + p.getPontos() + ":" + p.getCapturas()));
+        return pontos;
+    }
+
+    public List<String> pecasMais5Capturas(){
+        List<String> query = new ArrayList<>();
+        pecas.stream()
+                .filter((p) -> p.getCapturas() >= 5)
+                .sorted((p1, p2) -> p1.getCapturas() - p2.getCapturas())
+                .forEach((p) -> query.add(p.getIdEquipa() + ":" + p.getAlcunha() + ":" + p.getPontos() + ":" + p.getCapturas()));
+        return query;
+    }
+
+    public Map<String,List<String>> getEstatisticas() {
+        HashMap<String, List<String>> estatisticas = new HashMap<>();
+        return estatisticas;
+    }
+
+
 
     public int getIDPeca (int x, int y){ // Obtém o ID da peça nas coordenadas dadas.
         for (int i = 0; i < getPecasMalucas().size(); i++){
