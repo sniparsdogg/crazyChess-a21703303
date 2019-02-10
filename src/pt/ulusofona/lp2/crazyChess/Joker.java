@@ -13,6 +13,7 @@ public class Joker extends CrazyPiece {
             this.idTipo = 1;
         }
     }
+
      public String nomeTipoJoker(){
         switch(tipoJoker){
             case 1 :
@@ -34,6 +35,7 @@ public class Joker extends CrazyPiece {
      }
 
     public boolean jogadaValida(int xO, int xD, int yO, int yD, Simulador simulador) {
+
         CrazyPiece movimento;
          switch(tipoJoker){
             case 1:
@@ -122,5 +124,12 @@ public class Joker extends CrazyPiece {
             return (id + " | " + idTipo + "/" + nomeTipoJoker() + " | 4 | " + idEquipa + " | " + alcunha + " @ (n/a)");
         }
         return (id + " | " + idTipo + "/" + nomeTipoJoker() + " | 4 | " + idEquipa + " | " + alcunha + " @ (" + posicao + ")");
+    }
+
+    public String getImagePNG(){ // Getter da imagem.
+        if(this.getIdEquipa() == 10) {
+            return ("jokerPreto.png");
+        }
+        return("jokerBranco.png");
     }
 }

@@ -137,6 +137,10 @@ public abstract class CrazyPiece {
         return("PecasBrancas.png");
     }
 
+    public void incrementaTipoJoker(){
+
+    }
+
     public String toString(){ // Override da string da classe para podermos atribuir à mesma a string requerida pelo enunciado.
         if(capturada) {
             return (id + " | " + idTipo + " | " + idEquipa + " | " + alcunha + " @ (n/a)");

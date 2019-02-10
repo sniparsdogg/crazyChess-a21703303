@@ -31,4 +31,11 @@ public class Rei extends CrazyPiece {
         return (this.id + "| Rei | (infinito) | " + this.idEquipa + " | " + this.alcunha + " @ " + this.posicao);
     }
 
+    @Override
+    public String getImagePNG(){ // Getter da imagem.
+        if(this.getIdEquipa() == 10) {
+            return("reiPreto.png");
+        }
+        return("reiBranco.png");
+    }
 }

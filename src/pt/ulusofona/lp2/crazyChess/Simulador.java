@@ -226,6 +226,11 @@ public class Simulador {
                                     }
                                     turno++;
                                     turnosSemCapturas++;
+                                    for(int count = 0; count < getPecasMalucas().size(); count++){
+                                        if(getPecasMalucas().get(count).getJoker() == true){
+                                            getPecasMalucas().get(count).incrementaTipoJoker();
+                                        }
+                                    }
 
                                     return true;
                             }

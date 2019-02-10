@@ -7,6 +7,11 @@ public class TorreVert extends CrazyPiece {
             if (xD == xO && yD == yO || (xD < 0 || xD > simulador.getTamanhoTabuleiro()) || (yD < 0 || yD > simulador.getTamanhoTabuleiro()) ) {
                 return false;
             }
+            for (int i = 0; i < simulador.getPecasMalucas().size(); i++) {
+                if (simulador.getPecasMalucas().get(i).getPosicao().x == xD && simulador.getPecasMalucas().get(i).getPosicao().y == yD && simulador.getPecasMalucas().get(i).getIdEquipa() == this.idEquipa) {
+                    return false;
+                }
+            }
             if(yD < yO){
                 for(int i = 0; i < simulador.getPecasMalucas().size(); i++){
                     if(simulador.getPecasMalucas().get(i).getPosicao().y < yO && simulador.getPecasMalucas().get(i).getPosicao().y > yD  && simulador.getPecasMalucas().get(i).getPosicao().x == xD){
@@ -43,4 +48,10 @@ public class TorreVert extends CrazyPiece {
         return (this.id + " | TorreV | 3 | " + this.idEquipa + " | " + this.alcunha + " @ " + this.posicao);
     }
 
+    public String getImagePNG(){ // Getter da imagem.
+        if(this.getIdEquipa() == 10) {
+            return("torreVPreta.png");
+        }
+        return("torreVBranca.png");
+    }
 }
