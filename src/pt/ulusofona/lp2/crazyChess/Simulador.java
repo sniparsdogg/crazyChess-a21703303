@@ -283,7 +283,11 @@ public class Simulador {
     }
 
     public void anularJogadaAnterior() throws IOException, InvalidSimulatorInputException {
-            iniciaJogo(undo);
+            try {
+                iniciaJogo(undo);
+            } catch (IOException e){
+                System.out.println("Ocorreu um erro ao ler o ficheiro.");
+            }
     }
 
     public List<Comparable> obterSugestoesJogada(int xO, int yO){
