@@ -26,9 +26,9 @@ public class Rei extends CrazyPiece {
     @Override
     public String toString() {
         if (this.capturada) {
-            return (this.id + "| Rei | (infinito) | " + this.idEquipa + " | " + this.alcunha + " @ (n/a)");
+            return (this.id + " | Rei | (infinito) | " + this.idEquipa + " | " + this.alcunha + " @ (n/a)");
         }
-        return (this.id + "| Rei | (infinito) | " + this.idEquipa + " | " + this.alcunha + " @ (" + this.posicao + ")");
+        return (this.id + " | Rei | (infinito) | " + this.idEquipa + " | " + this.alcunha + " @ (" + this.posicao + ")");
     }
 
     @Override

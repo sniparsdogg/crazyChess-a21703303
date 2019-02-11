@@ -8,7 +8,7 @@ public class Joker extends CrazyPiece {
     public void incrementaTipoJoker(){
         tipoJoker++;
         this.idTipo++;
-        if(tipoJoker == 8){
+        if(tipoJoker == 7){
             tipoJoker = 1;
             this.idTipo = 1;
         }
@@ -28,8 +28,6 @@ public class Joker extends CrazyPiece {
                 return "TorreV";
             case 6:
                 return "Lebre";
-            case 7:
-                return "Rainha Mãe";
         }
         return "Tipo invalido";
      }
@@ -91,16 +89,6 @@ public class Joker extends CrazyPiece {
                 return movimento.jogadaValida(xO, xD, yO, yD, simulador);
             case 6:
                 movimento = new Lebre();
-                movimento.id = this.id;
-                movimento.idTipo = this.idTipo;
-                movimento.idEquipa = this.idEquipa;
-                movimento.alcunha = this.alcunha;
-                movimento.posicao = this.posicao;
-                movimento.capturada = this.capturada;
-                movimento.joker = this.joker;
-                return movimento.jogadaValida(xO, xD, yO, yD, simulador);
-            case 7:
-                movimento = new RainhaMae();
                 movimento.id = this.id;
                 movimento.idTipo = this.idTipo;
                 movimento.idEquipa = this.idEquipa;
