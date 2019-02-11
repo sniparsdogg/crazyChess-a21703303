@@ -4,7 +4,7 @@ public class Rainha extends CrazyPiece {
     int valorRelativo = 8;
     public boolean jogadaValida(int xO, int xD, int yO, int yD, Simulador simulador) {
         if((xD <= xO + 5 && xD >= xO - 5) && (yD <= yO + 5 && yD >= yO - 5)) {
-            if (xD == xO && yD == yO || (xD < 0 || xD > simulador.getTamanhoTabuleiro()) || (yD < 0 || yD > simulador.getTamanhoTabuleiro())) {
+            if (xD == xO && yD == yO || (xD < 0 || xD > simulador.getTamanhoTabuleiro() - 1) || (yD < 0 || yD > simulador.getTamanhoTabuleiro() - 1)) {
                 return false;
             }
             for (int i = 0; i < simulador.getPecasMalucas().size(); i++) {

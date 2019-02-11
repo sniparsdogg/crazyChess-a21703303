@@ -5,7 +5,7 @@ public class PadreVila extends CrazyPiece {
     public boolean jogadaValida(int xO, int xD, int yO, int yD, Simulador simulador) {
         for(int i = 0; i < 4; i++) {
             if((xD == xO + i || xD == xO - i) && (yD == yO + i || yD == yO - i)) {
-                if ((xD == xO && yD == yO) || (xD < 0 || xD > simulador.getTamanhoTabuleiro()) || (yD < 0 || yD > simulador.getTamanhoTabuleiro()) ) {
+                if ((xD == xO && yD == yO) || (xD < 0 || xD > simulador.getTamanhoTabuleiro() - 1) || (yD < 0 || yD > simulador.getTamanhoTabuleiro() - 1) ) {
                     return false;
                 }
                 for (int count = 0; count < simulador.getPecasMalucas().size(); count++) {

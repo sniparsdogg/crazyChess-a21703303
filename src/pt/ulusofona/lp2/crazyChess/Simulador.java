@@ -444,6 +444,7 @@ public class Simulador {
     public List<String> top5Capturas() {
         List<String> query = new ArrayList<>();
         pecas.stream()
+                .sorted((c1, c2) -> c1.getAlcunha().compareTo(c2.getAlcunha()))
                 .sorted((p1, p2) -> p2.getCapturas() - p1.getCapturas())
                 .limit(5)
                 .forEach((p) -> query.add(p.getIdEquipa() + ":" + p.getAlcunha() + ":" + p.getPontos() + ":" + p.getCapturas()));
@@ -453,6 +454,7 @@ public class Simulador {
     public List<String> top5Pontos(){
         List<String> query = new ArrayList<>();
         pecas.stream()
+                .sorted((c1, c2) -> c1.getAlcunha().compareTo(c2.getAlcunha()))
                 .sorted((p1, p2) -> p2.getPontos() - p1.getPontos())
                 .limit(5)
                 .forEach((p) -> query.add(p.getIdEquipa() + ":" + p.getAlcunha() + ":" + p.getPontos() + ":" + p.getCapturas()));
@@ -503,6 +505,7 @@ public class Simulador {
     public List<String> mostValuableCrazyPiece(){
         List<String> query = new ArrayList<>();
         pecas.stream()
+                .filter((p) -> p.getCapturas() != 0)
                 .sorted(Comparator.comparingDouble(CrazyPiece::getRacioPontos))
                 .limit(3)
                 .forEach((p) -> query.add(p.getIdEquipa() + ":" + p.getId() + ":" + p.getAlcunha() + ":" + p.getPontos() + ":" + p.getCapturas()));

@@ -5,7 +5,7 @@ public class PoneiMagico extends CrazyPiece {
     public boolean jogadaValida(int xO, int xD, int yO, int yD, Simulador simulador) {
 
         if((xD == xO + 2 || xD == xO - 2) && (yD == yO + 2 || yD == yO - 2)){
-            if (xD == xO && yD == yO || (xD < 0 || xD > simulador.getTamanhoTabuleiro()) || (yD < 0 || yD > simulador.getTamanhoTabuleiro()) ) {
+            if (xD == xO && yD == yO || (xD < 0 || xD > simulador.getTamanhoTabuleiro() - 1) || (yD < 0 || yD > simulador.getTamanhoTabuleiro() - 1) ) {
                 return false;
             }
             for (int i = 0; i < simulador.getPecasMalucas().size(); i++) {

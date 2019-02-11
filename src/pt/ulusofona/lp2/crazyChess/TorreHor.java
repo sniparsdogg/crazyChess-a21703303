@@ -4,7 +4,7 @@ public class TorreHor extends CrazyPiece {
     int valorRelativo = 3;
     public boolean jogadaValida(int xO, int xD, int yO, int yD, Simulador simulador) {
         if(yO == yD) {
-            if (xD == xO && yD == yO || (xD < 0 || xD > simulador.getTamanhoTabuleiro()) || (yD < 0 || yD > simulador.getTamanhoTabuleiro()) ) {
+            if (xD == xO && yD == yO || (xD < 0 || xD > simulador.getTamanhoTabuleiro() - 1) || (yD < 0 || yD > simulador.getTamanhoTabuleiro() - 1) ) {
                 return false;
             }
             for (int i = 0; i < simulador.getPecasMalucas().size(); i++) {
