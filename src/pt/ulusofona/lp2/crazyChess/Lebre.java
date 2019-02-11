@@ -3,7 +3,7 @@ package pt.ulusofona.lp2.crazyChess;
 public class Lebre extends CrazyPiece {
     int valorRelativo = 2;
     public boolean jogadaValida(int xO, int xD, int yO, int yD, Simulador simulador) {
-        if (simulador.turno % 2 != 0) {
+        if (simulador.turno % 2 == 0) {
             if ((xD == xO - 1 || xD == xO + 1) && (yD == yO - 1 || yD == yO + 1)) {
                 if (xD == xO && yD == yO || (xD < 0 || xD > simulador.getTamanhoTabuleiro()) || (yD < 0 || yD > simulador.getTamanhoTabuleiro()) ) {
                     return false;
