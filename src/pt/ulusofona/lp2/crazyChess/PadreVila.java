@@ -83,7 +83,7 @@ public class PadreVila extends CrazyPiece {
                             if(pecaATestar == null || pecaATestar.getIdTipo() != 1 || (pecaATestar.getIdTipo() == 1 && pecaATestar.getIdEquipa() == this.idEquipa)){
                                 pecaATestar = simulador.pecaNaPosicao(xD - 1, yD + 1);
                                 if(pecaATestar == null || pecaATestar.getIdTipo() != 1 || (pecaATestar.getIdTipo() == 1 && pecaATestar.getIdEquipa() == this.idEquipa)){
-                                    pecaATestar = simulador.pecaNaPosicao(xD + 1, yD);
+                                    pecaATestar = simulador.pecaNaPosicao(xD - 1, yD);
                                     if(pecaATestar == null || pecaATestar.getIdTipo() != 1 || (pecaATestar.getIdTipo() == 1 && pecaATestar.getIdEquipa() == this.idEquipa)){
                                         return true;
                                     }
