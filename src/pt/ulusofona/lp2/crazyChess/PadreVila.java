@@ -9,7 +9,7 @@ public class PadreVila extends CrazyPiece {
                     return false;
                 }
                 for (int count = 0; count < simulador.getPecasMalucas().size(); count++) {
-                    if (simulador.getPecasMalucas().get(i).getPosicao().x == xD && simulador.getPecasMalucas().get(i).getPosicao().y == yD && simulador.getPecasMalucas().get(i).getIdEquipa() == this.idEquipa) {
+                    if (simulador.getPecasMalucas().get(count).getPosicao().x == xD && simulador.getPecasMalucas().get(count).getPosicao().y == yD && simulador.getPecasMalucas().get(count).getIdEquipa() == this.idEquipa) {
                         return false;
                     }
                 }
