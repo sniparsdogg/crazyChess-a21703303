@@ -283,7 +283,7 @@ public class Simulador {
             return true;
         } else if (pecasPretas.size() == 1 && pecasBrancas.size() == 1) {
             return true;
-        } else if (turnosSemCapturas == 11 && capturaEfectuada == true){
+        } else if (turnosSemCapturas >= 11 && capturaEfectuada == true){
             return true;
         }
         for(int i = 0; i < getPecasPretas().size(); i++){
