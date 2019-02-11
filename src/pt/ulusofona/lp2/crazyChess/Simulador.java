@@ -174,7 +174,7 @@ public class Simulador {
                 resultados.setValidasBrancas(Integer.parseInt(coluna5[4]));
                 resultados.setCapturasBrancas(Integer.parseInt(coluna5[5]));
                 resultados.setInvalidasBrancas(Integer.parseInt(coluna5[6]));
-                if(coluna5[7] != null){
+                if(coluna5.length == 8){
                     turnosSemCapturas = Integer.parseInt(coluna5[7]);
                 }
             }
