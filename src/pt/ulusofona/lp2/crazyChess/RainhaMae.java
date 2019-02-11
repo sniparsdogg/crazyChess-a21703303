@@ -150,7 +150,7 @@ public class RainhaMae extends CrazyPiece {
     @Override
     public String toString() {
       //  if (this.capturada) {
-            return (this.id + " | " + this.idEquipa + " | 7 | Rainha Mãe | " + this.alcunha + " | " + this.movimentos);
+            return (this.id + " " + this.idEquipa + " 7 " + this.alcunha + " " + this.movimentos);
       //  }
       //  return (this.id + " | Rainha Mãe | 7 | " + this.idEquipa + " | " + this.alcunha + " @ " + this.posicao);
     }

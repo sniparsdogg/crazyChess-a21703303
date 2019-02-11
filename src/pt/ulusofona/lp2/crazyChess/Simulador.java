@@ -205,7 +205,7 @@ public class Simulador {
                                         if (pecaJ.posicao.x == xD && pecaJ.posicao.y == yD && pecaJ.getIdEquipa() != getIDEquipaAJogar()) {
                                             if(getPecasMalucas().get(j).getIdEquipa() == 10) {
                                                 for(int k = 0; k < getPecasPretas().size(); k++){
-                                                    if(pecaJ.getAlcunha().equals(getPecasPretas().get(k).getAlcunha())){
+                                                    if(pecaJ.getId() == (getPecasPretas().get(k).getId())){
                                                         getPecasPretas().remove(k);
                                                         resultados.somaCapturasBrancas();
                                                     }
@@ -213,7 +213,7 @@ public class Simulador {
                                             }
                                             else {
                                                 for(int k = 0; k < getPecasBrancas().size(); k++) {
-                                                    if(getPecasMalucas().get(j).getAlcunha().equals(getPecasBrancas().get(k).getAlcunha())){
+                                                    if(getPecasMalucas().get(j).getId() == (getPecasBrancas().get(k).getId())){
                                                         getPecasBrancas().remove(k);
                                                         resultados.somaCapturasPretas();
                                                     }
