@@ -174,11 +174,8 @@ public class Simulador {
                 resultados.setValidasBrancas(Integer.parseInt(coluna5[4]));
                 resultados.setCapturasBrancas(Integer.parseInt(coluna5[5]));
                 resultados.setInvalidasBrancas(Integer.parseInt(coluna5[6]));
-                if (scannerFicheiro.hasNextLine()) {
-                    String linhaTurnos = scannerFicheiro.nextLine();
-                    if (linhaTurnos != null) {
-                        turnosSemCapturas = Integer.parseInt(linhaTurnos);
-                    }
+                if(coluna5[7] != null){
+                    turnosSemCapturas = Integer.parseInt(coluna5[7]);
                 }
             }
         } catch (FileNotFoundException e) {
@@ -408,7 +405,7 @@ public class Simulador {
             writer.write(String.valueOf(resultados.getCapturasBrancas()));
             writer.write(":");
             writer.write(String.valueOf(resultados.getInvalidasBrancas()));
-            writer.write(newLine);
+            writer.write(":");
             writer.write(String.valueOf(turnosSemCapturas));
 
             writer.close();
@@ -509,7 +506,7 @@ public class Simulador {
         List<String> query = new ArrayList<>();
         pecas.stream()
                 .filter((p) -> p.getCapturas() != 0)
-                .sorted(Comparator.comparingDouble(CrazyPiece::getRacioPontos))
+                .sorted((p1, p2) -> Double.compare(p2.getRacioPontos(), p1.getRacioPontos()))
                 .limit(3)
                 .forEach((p) -> query.add(p.getIdEquipa() + ":" + p.getId() + ":" + p.getAlcunha() + ":" + p.getPontos() + ":" + p.getCapturas()));
         return query;
