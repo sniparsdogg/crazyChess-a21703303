@@ -234,9 +234,11 @@ public class Simulador {
                                         }
                                     }
                                     turno++;
-                                    turnosSemCapturas++;
                                     if(!capturaEfectuada) {
                                         capturaEfectuada = true;
+                                    }
+                                    if(capturaEfectuada) {
+                                        turnosSemCapturas++;
                                     }
                                     for(int count = 0; count < getPecasMalucas().size(); count++){
                                         if(getPecasMalucas().get(count).getJoker() == true){
