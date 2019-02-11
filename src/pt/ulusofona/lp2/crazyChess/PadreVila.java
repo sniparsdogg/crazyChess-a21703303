@@ -3,7 +3,7 @@ package pt.ulusofona.lp2.crazyChess;
 public class PadreVila extends CrazyPiece {
     int valorRelativo = 3;
     public boolean jogadaValida(int xO, int xD, int yO, int yD, Simulador simulador) {
-        for(int i = 0; i < 3; i++) {
+        for(int i = 0; i < 4; i++) {
             if((xD == xO + i || xD == xO - i) && (yD == yO + i || yD == yO - i)) {
                 if ((xD == xO && yD == yO) || (xD < 0 || xD > simulador.getTamanhoTabuleiro()) || (yD < 0 || yD > simulador.getTamanhoTabuleiro()) ) {
                     return false;
