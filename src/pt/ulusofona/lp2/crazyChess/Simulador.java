@@ -23,6 +23,7 @@ public class Simulador {
     int turnosSemCapturas;
     Resultados resultados = new Resultados();
     File undo = new File("undo.txt");
+    boolean capturaEfectuada = false;
 
 
    public Simulador(){
@@ -38,7 +39,7 @@ public class Simulador {
             Scanner scannerFicheiro = new Scanner(ficheiroInicial);
             String linha = scannerFicheiro.nextLine();
             String coluna[] = linha.split(":");
-            if(coluna.length != 1){
+            if (coluna.length != 1) {
                 throw new InvalidSimulatorInputException(1, coluna.length);
             } else {
                 tamanho = Integer.parseInt(coluna[0]);
@@ -46,7 +47,7 @@ public class Simulador {
             linha = scannerFicheiro.nextLine();
             String coluna2[] = linha.split(":");
             int pecasEmJogo;
-            if(coluna2.length != 1){
+            if (coluna2.length != 1) {
                 throw new InvalidSimulatorInputException(2, coluna2.length);
             } else {
                 pecasEmJogo = Integer.parseInt(coluna2[0]);
@@ -57,7 +58,7 @@ public class Simulador {
                 if (coluna3.length != 4) {
                     throw new InvalidSimulatorInputException(i + 2, coluna3.length);
                 } else {
-                    switch(Integer.parseInt(coluna3[1])){
+                    switch (Integer.parseInt(coluna3[1])) {
                         case 0:
                             Rei rei = new Rei();
                             rei.setId(Integer.parseInt(coluna3[0]));
@@ -136,15 +137,15 @@ public class Simulador {
 
                 }
             }
-            for(int i = 0; i < tamanho; i++) {
+            for (int i = 0; i < tamanho; i++) {
                 String linha2 = scannerFicheiro.nextLine();
                 String coluna4[] = linha2.split(":");
-                for(int j = 0; j < tamanho; j++) {
-                    if(!(Integer.parseInt(coluna4[j]) == 0)){
-                        for(int k = 0; k < getPecasMalucas().size(); k++) {
+                for (int j = 0; j < tamanho; j++) {
+                    if (!(Integer.parseInt(coluna4[j]) == 0)) {
+                        for (int k = 0; k < getPecasMalucas().size(); k++) {
                             if (Integer.parseInt(coluna4[j]) == getPecasMalucas().get(k).getId()) {
                                 getPecasMalucas().get(k).setPosicao(j, i);
-                                if(getPecasMalucas().get(k).getIdEquipa() == 10) {
+                                if (getPecasMalucas().get(k).getIdEquipa() == 10) {
                                     pecasPretas.add(getPecasMalucas().get(k));
                                 } else {
                                     pecasBrancas.add(getPecasMalucas().get(k));
@@ -158,7 +159,7 @@ public class Simulador {
             turno = 0;
             turnosSemCapturas = 0;
 
-            if(scannerFicheiro.hasNextLine()){
+            if (scannerFicheiro.hasNextLine()) {
                 String linhaExtra = scannerFicheiro.nextLine();
                 String coluna5[] = linhaExtra.split(":");
                 turno += Integer.parseInt(coluna5[1]) + Integer.parseInt(coluna5[4]);
@@ -168,13 +169,15 @@ public class Simulador {
                 resultados.setValidasBrancas(Integer.parseInt(coluna5[4]));
                 resultados.setCapturasBrancas(Integer.parseInt(coluna5[5]));
                 resultados.setInvalidasBrancas(Integer.parseInt(coluna5[6]));
-                if(coluna5[7] != null){
+                if (coluna5[7] != null) {
                     turnosSemCapturas = Integer.parseInt(coluna5[7]);
                 }
             }
-
-        } catch (IOException exception) {
+        } catch (FileNotFoundException e) {
             System.out.println("Erro: o ficheiro " + ficheiroInicial + " não foi encontrado.");
+            throw new IOException();
+        } catch (IOException exception) {
+            System.out.println("Ocorreu um erro ao ler o ficheiro.");
         }
     }
 
@@ -190,27 +193,28 @@ public class Simulador {
                             if(pecaAJogar.jogadaValida(xO, xD, yO, yD, this)){
                                 gravarJogo(undo);
                                 for (int j = 0; j < getPecasMalucas().size(); j++) {
-                                        if (getPecasMalucas().get(j).posicao.x == xD && getPecasMalucas().get(j).posicao.y == yD && getPecasMalucas().get(j).getIdEquipa() != getIDEquipaAJogar()) {
+                                    CrazyPiece pecaJ = getPecasMalucas().get(j);
+                                        if (pecaJ.posicao.x == xD && pecaJ.posicao.y == yD && pecaJ.getIdEquipa() != getIDEquipaAJogar()) {
                                             if(getPecasMalucas().get(j).getIdEquipa() == 10) {
                                                 for(int k = 0; k < getPecasPretas().size(); k++){
-                                                    if(getPecasMalucas().get(j).getAlcunha().equals(getPecasPretas().get(k).getAlcunha())){
+                                                    if(pecaJ.getAlcunha().equals(getPecasPretas().get(k).getAlcunha())){
                                                         getPecasPretas().remove(k);
                                                         resultados.somaCapturasBrancas();
                                                     }
                                                 }
                                             }
                                             else {
-                                                for(int k = 0; k < getPecasBrancas().size(); k ++) {
+                                                for(int k = 0; k < getPecasBrancas().size(); k++) {
                                                     if(getPecasMalucas().get(j).getAlcunha().equals(getPecasBrancas().get(k).getAlcunha())){
                                                         getPecasBrancas().remove(k);
                                                         resultados.somaCapturasPretas();
                                                     }
                                                 }
                                             }
-                                            getPecasMalucas().get(j).setCapturada();
+                                            pecaJ.setCapturada();
                                             turnosSemCapturas = 0;
                                             pecaAJogar.somaCapturas();
-                                            pecaAJogar.somaPontos(getPecasMalucas().get(j).getValorRelativo());
+                                            pecaAJogar.somaPontos(pecaJ.getValorRelativo());
                                         }
                                     }
                                     if(getIDEquipaAJogar() == 10) {
@@ -226,6 +230,9 @@ public class Simulador {
                                     }
                                     turno++;
                                     turnosSemCapturas++;
+                                    if(!capturaEfectuada) {
+                                        capturaEfectuada = true;
+                                    }
                                     for(int count = 0; count < getPecasMalucas().size(); count++){
                                         if(getPecasMalucas().get(count).getJoker() == true){
                                             getPecasMalucas().get(count).incrementaTipoJoker();
@@ -270,7 +277,7 @@ public class Simulador {
             return true;
         } else if (pecasPretas.size() == 1 && pecasBrancas.size() == 1) {
             return true;
-        } else if (turnosSemCapturas == 11){
+        } else if (turnosSemCapturas == 11 && capturaEfectuada == true){
             return true;
         }
         return false;
@@ -282,7 +289,7 @@ public class Simulador {
         return autores;
     }
 
-    public void anularJogadaAnterior() throws IOException, InvalidSimulatorInputException {
+    public void anularJogadaAnterior() {
             try {
                 iniciaJogo(undo);
             } catch (IOException e){
@@ -418,7 +425,7 @@ public class Simulador {
     public List<String> top5Capturas() {
         List<String> query = new ArrayList<>();
         pecas.stream()
-                .sorted((p1, p2) -> p1.getCapturas() - p2.getCapturas())
+                .sorted((p1, p2) -> p2.getCapturas() - p1.getCapturas())
                 .limit(5)
                 .forEach((p) -> query.add(p.getIdEquipa() + ":" + p.getAlcunha() + ":" + p.getPontos() + ":" + p.getCapturas()));
         return query;
@@ -427,7 +434,7 @@ public class Simulador {
     public List<String> top5Pontos(){
         List<String> query = new ArrayList<>();
         pecas.stream()
-                .sorted((p1, p2) -> p1.getPontos() - p2.getPontos())
+                .sorted((p1, p2) -> p2.getPontos() - p1.getPontos())
                 .limit(5)
                 .forEach((p) -> query.add(p.getIdEquipa() + ":" + p.getAlcunha() + ":" + p.getPontos() + ":" + p.getCapturas()));
         return query;
@@ -437,7 +444,7 @@ public class Simulador {
         List<String> query = new ArrayList<>();
         pecas.stream()
                 .filter((p) -> p.getCapturas() >= 5)
-                .sorted((p1, p2) -> p1.getCapturas() - p2.getCapturas())
+                .sorted((p1, p2) -> p2.getCapturas() - p1.getCapturas())
                 .forEach((p) -> query.add(p.getIdEquipa() + ":" + p.getAlcunha() + ":" + p.getPontos() + ":" + p.getCapturas()));
         return query;
     }
@@ -459,7 +466,7 @@ public class Simulador {
                     .filter((p) -> p.getIdTipo() == count)
                     .collect(summingInt(CrazyPiece::getCapturas));
             if(somaCapturas != 0){
-                query.add(i, String.valueOf(somaCapturas));
+                query.add(i + ":" + String.valueOf(somaCapturas));
             }
         }
         return query;
