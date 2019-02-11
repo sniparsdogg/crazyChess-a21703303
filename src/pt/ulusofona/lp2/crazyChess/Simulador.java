@@ -174,8 +174,9 @@ public class Simulador {
                 resultados.setValidasBrancas(Integer.parseInt(coluna5[4]));
                 resultados.setCapturasBrancas(Integer.parseInt(coluna5[5]));
                 resultados.setInvalidasBrancas(Integer.parseInt(coluna5[6]));
-                if (scannerFicheiro.hasNextLine()){
-                    turnosSemCapturas = Integer.parseInt(scannerFicheiro.nextLine());
+                String linhaTurnos = scannerFicheiro.nextLine();
+                if (linhaTurnos != null){
+                    turnosSemCapturas = Integer.parseInt(linhaTurnos);
                 }
             }
         } catch (FileNotFoundException e) {
