@@ -366,7 +366,6 @@ public class Simulador {
             FileWriter writer = new FileWriter(output);
 
             writer.write(String.valueOf(this.getTamanhoTabuleiro()));
-            System.out.println(this.getTamanhoTabuleiro());
             writer.write(newLine);
             writer.write(String.valueOf(this.getPecasEmJogo().size()));
             writer.write(newLine);
