@@ -145,21 +145,21 @@ public class RainhaMae extends CrazyPiece {
 
     public boolean verificaPadre(int xD, int yD, Simulador simulador){
         CrazyPiece pecaATestar = simulador.pecaNaPosicao(xD - 1, yD -1);
-        if(pecaATestar == null || pecaATestar.getIdTipo() != 3 || (pecaATestar.getIdTipo() == 1 && pecaATestar.getIdEquipa() == this.idEquipa) ){
+        if(pecaATestar == null || pecaATestar.getIdTipo() != 3 || (pecaATestar.getIdTipo() == 3 && pecaATestar.getIdEquipa() == this.idEquipa) ){
             pecaATestar = simulador.pecaNaPosicao(xD, yD - 1);
-            if(pecaATestar == null || pecaATestar.getIdTipo() != 3 || (pecaATestar.getIdTipo() == 1 && pecaATestar.getIdEquipa() == this.idEquipa)){
+            if(pecaATestar == null || pecaATestar.getIdTipo() != 3 || (pecaATestar.getIdTipo() == 3 && pecaATestar.getIdEquipa() == this.idEquipa)){
                 pecaATestar = simulador.pecaNaPosicao(xD + 1, yD -1);
-                if(pecaATestar == null || pecaATestar.getIdTipo() != 3 || (pecaATestar.getIdTipo() == 1 && pecaATestar.getIdEquipa() == this.idEquipa)) {
+                if(pecaATestar == null || pecaATestar.getIdTipo() != 3 || (pecaATestar.getIdTipo() == 3 && pecaATestar.getIdEquipa() == this.idEquipa)) {
                     pecaATestar = simulador.pecaNaPosicao(xD + 1, yD);
-                    if(pecaATestar == null || pecaATestar.getIdTipo() != 3 || (pecaATestar.getIdTipo() == 1 && pecaATestar.getIdEquipa() == this.idEquipa)){
+                    if(pecaATestar == null || pecaATestar.getIdTipo() != 3 || (pecaATestar.getIdTipo() == 3 && pecaATestar.getIdEquipa() == this.idEquipa)){
                         pecaATestar = simulador.pecaNaPosicao(xD + 1, yD + 1);
-                        if(pecaATestar == null || pecaATestar.getIdTipo() != 3 || (pecaATestar.getIdTipo() == 1 && pecaATestar.getIdEquipa() == this.idEquipa)){
+                        if(pecaATestar == null || pecaATestar.getIdTipo() != 3 || (pecaATestar.getIdTipo() == 3 && pecaATestar.getIdEquipa() == this.idEquipa)){
                             pecaATestar = simulador.pecaNaPosicao(xD, yD + 1);
-                            if(pecaATestar == null || pecaATestar.getIdTipo() != 3 || (pecaATestar.getIdTipo() == 1 && pecaATestar.getIdEquipa() == this.idEquipa)){
+                            if(pecaATestar == null || pecaATestar.getIdTipo() != 3 || (pecaATestar.getIdTipo() == 3 && pecaATestar.getIdEquipa() == this.idEquipa)){
                                 pecaATestar = simulador.pecaNaPosicao(xD - 1, yD + 1);
-                                if(pecaATestar == null || pecaATestar.getIdTipo() != 3 || (pecaATestar.getIdTipo() == 1 && pecaATestar.getIdEquipa() == this.idEquipa)){
+                                if(pecaATestar == null || pecaATestar.getIdTipo() != 3 || (pecaATestar.getIdTipo() == 3 && pecaATestar.getIdEquipa() == this.idEquipa)){
                                     pecaATestar = simulador.pecaNaPosicao(xD + 1, yD);
-                                    if(pecaATestar == null || pecaATestar.getIdTipo() != 3 || (pecaATestar.getIdTipo() == 1 && pecaATestar.getIdEquipa() == this.idEquipa)){
+                                    if(pecaATestar == null || pecaATestar.getIdTipo() != 3 || (pecaATestar.getIdTipo() == 3 && pecaATestar.getIdEquipa() == this.idEquipa)){
                                         return true;
                                     }
                                 }
@@ -179,7 +179,7 @@ public class RainhaMae extends CrazyPiece {
     @Override
     public String toString() {
       //  if (this.capturada) {
-            return (this.id + " " + this.idEquipa + " 7 " + this.alcunha + " | " + this.movimentos);
+            return (this.id + " " + this.idEquipa + " 7 " + this.alcunha + " " + this.movimentos);
       //  }
       //  return (this.id + " | Rainha Mãe | 7 | " + this.idEquipa + " | " + this.alcunha + " @ " + this.posicao);
     }
