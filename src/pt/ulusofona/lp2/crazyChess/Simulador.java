@@ -23,7 +23,9 @@ public class Simulador {
     int turnosSemCapturas;
     Resultados resultados = new Resultados();
     File undo = new File("undo.txt");
-    boolean capturaEfectuada = false;
+    boolean capturaEfectuada;
+    boolean temReiBranca;
+    boolean temReiPreta;
 
 
    public Simulador(){
@@ -36,6 +38,9 @@ public class Simulador {
             pecasPretas = new ArrayList<CrazyPiece>();
             pecasBrancas = new ArrayList<CrazyPiece>();
             resultados = new Resultados();
+            capturaEfectuada = false;
+            temReiBranca = false;
+            temReiPreta = false;
             Scanner scannerFicheiro = new Scanner(ficheiroInicial);
             String linha = scannerFicheiro.nextLine();
             String coluna[] = linha.split(":");
@@ -241,16 +246,15 @@ public class Simulador {
 
                                     return true;
                             }
-                    if(getIDEquipaAJogar() == 10) {
-                        resultados.somaInvalidasPretas();
-                    } else {
-                        resultados.somaInvalidasBrancas();
-                    }
                     pecaAJogar.somaMoveInvalidos();
-
                 }
-            }
 
+            }
+        if(getIDEquipaAJogar() == 10) {
+            resultados.somaInvalidasPretas();
+        } else {
+            resultados.somaInvalidasBrancas();
+        }
         return false;
     }
 
@@ -273,11 +277,26 @@ public class Simulador {
     }
 
     public boolean jogoTerminado() {  // Função que determina se o jogo terminou.
+        temReiPreta = false;
+        temReiBranca = false;
         if(getPecasBrancas().size() == 0 || getPecasPretas().size() == 0){
             return true;
         } else if (pecasPretas.size() == 1 && pecasBrancas.size() == 1) {
             return true;
         } else if (turnosSemCapturas == 11 && capturaEfectuada == true){
+            return true;
+        }
+        for(int i = 0; i < getPecasPretas().size(); i++){
+            if(getPecasPretas().get(i).getIdTipo() == 0){
+                temReiPreta = true;
+            }
+        }
+        for(int i = 0; i < getPecasBrancas().size(); i++){
+            if(getPecasBrancas().get(i).getIdTipo() == 0){
+                temReiBranca = true;
+            }
+        }
+        if(!temReiBranca || !temReiPreta){
             return true;
         }
         return false;
@@ -403,9 +422,9 @@ public class Simulador {
         resultadoFinal.add("JOGO DE CRAZY CHESS");
         if(getPecasPretas().size() == getPecasBrancas().size() || turnosSemCapturas == 11 ) {
             resultadoFinal.add("Resultado: EMPATE");
-        } else if(getPecasPretas().size() > getPecasBrancas().size()){
+        } else if(!temReiBranca){
             resultadoFinal.add("Resultado: VENCERAM AS PRETAS");
-        } else if (getPecasPretas().size() < getPecasBrancas().size()){
+        } else if (!temReiPreta){
             resultadoFinal.add("Resultado: VENCERAM AS BRANCAS");
 
         }
