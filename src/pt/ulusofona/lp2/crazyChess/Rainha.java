@@ -167,7 +167,7 @@ public class Rainha extends CrazyPiece {
     @Override
     public String toString() {
         if (this.capturada) {
-            return (this.id + "| Rainha | 8 | " + this.idEquipa + " | " + this.alcunha + " @ (n/a)");
+            return (this.id + " | Rainha | 8 | " + this.idEquipa + " | " + this.alcunha + " @ (n/a)");
         }
         return (this.id + " | Rainha | 8 | " + this.idEquipa + " | " + this.alcunha + " @ (" + this.posicao + ")");
     }

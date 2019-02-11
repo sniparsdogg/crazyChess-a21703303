@@ -43,7 +43,7 @@ public class TorreHor extends CrazyPiece {
     @Override
     public String toString() {
         if (this.capturada) {
-            return (this.id + "| TorreH | 3 | " + this.idEquipa + " | " + this.alcunha + " @ (n/a)");
+            return (this.id + " | TorreH | 3 | " + this.idEquipa + " | " + this.alcunha + " @ (n/a)");
         }
         return (this.id + " | TorreH | 3 | " + this.idEquipa + " | " + this.alcunha + " @ (" + this.posicao + ")");
     }

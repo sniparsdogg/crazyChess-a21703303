@@ -114,7 +114,7 @@ public class PoneiMagico extends CrazyPiece {
     @Override
     public String toString() {
         if (this.capturada) {
-            return (this.id + "| Ponei Mágico | 5 | " + this.idEquipa + " | " + this.alcunha + " @ (n/a)");
+            return (this.id + " | Ponei Mágico | 5 | " + this.idEquipa + " | " + this.alcunha + " @ (n/a)");
         }
         return (this.id + " | Ponei Mágico | 5 | " + this.idEquipa + " | " + this.alcunha + " @ (" + this.posicao + ")");
     }
