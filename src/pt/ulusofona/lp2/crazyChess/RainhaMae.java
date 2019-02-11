@@ -29,7 +29,7 @@ public class RainhaMae extends CrazyPiece {
                         }
                     }
                     somarMovimentos();
-                    return true;
+                    return verificaPadre(xD, yD, simulador);
                 } else if (xO - count == xD && yO == yD) { // horizontal oeste
                     for (int i = 0; i < simulador.getPecasMalucas().size(); i++) {
                         if (simulador.getPecasMalucas().get(i).getPosicao().x < xO && simulador.getPecasMalucas().get(i).getPosicao().x > xD && simulador.getPecasMalucas().get(i).getPosicao().y == yD) {
@@ -42,7 +42,7 @@ public class RainhaMae extends CrazyPiece {
                         }
                     }
                     somarMovimentos();
-                    return true;
+                    return verificaPadre(xD, yD, simulador);
                 } else if (xO == xD && yO - count == yD) { // vertical norte
                     for (int i = 0; i < simulador.getPecasMalucas().size(); i++) {
                         if (simulador.getPecasMalucas().get(i).getPosicao().y < yO && simulador.getPecasMalucas().get(i).getPosicao().y > yD && simulador.getPecasMalucas().get(i).getPosicao().x == xD) {
@@ -55,7 +55,7 @@ public class RainhaMae extends CrazyPiece {
                         }
                     }
                     somarMovimentos();
-                    return true;
+                    return verificaPadre(xD, yD, simulador);
                 } else if (xO == xD && yO + count == yD) { // vertical sul
                     for (int i = 0; i < simulador.getPecasMalucas().size(); i++) {
                         if (simulador.getPecasMalucas().get(i).getPosicao().y > yO && simulador.getPecasMalucas().get(i).getPosicao().y < yD && simulador.getPecasMalucas().get(i).getPosicao().x == xD) {
@@ -68,7 +68,7 @@ public class RainhaMae extends CrazyPiece {
                         }
                     }
                     somarMovimentos();
-                    return true;
+                    return verificaPadre(xD, yD, simulador);
 
                 } else if (xO + count == xD && yO - count == yD) { // diagonal nordeste
                     for (int i = 0; i < simulador.getPecasMalucas().size(); i++) {
@@ -85,7 +85,7 @@ public class RainhaMae extends CrazyPiece {
                         }
                     }
                     somarMovimentos();
-                    return true;
+                    return verificaPadre(xD, yD, simulador);
 
                 } else if (xO - count == xD && yO - count == yD) { // diagonal noroeste
                     for (int i = 0; i < simulador.getPecasMalucas().size(); i++) {
@@ -102,7 +102,7 @@ public class RainhaMae extends CrazyPiece {
                         }
                     }
                     somarMovimentos();
-                    return true;
+                    return verificaPadre(xD, yD, simulador);
 
                 } else if (xO + count == xD && yO + count == yD) { // diagonal sudeste
                     for (int i = 0; i < simulador.getPecasMalucas().size(); i++) {
@@ -119,7 +119,7 @@ public class RainhaMae extends CrazyPiece {
                         }
                     }
                     somarMovimentos();
-                    return true;
+                    return verificaPadre(xD, yD, simulador);
 
                 } else if (xO - count == xD && yO + count == yD) { // diagonal sudoeste
                     for (int i = 0; i < simulador.getPecasMalucas().size(); i++) {
@@ -136,7 +136,36 @@ public class RainhaMae extends CrazyPiece {
                         }
                     }
                     somarMovimentos();
-                    return true;
+                    return verificaPadre(xD, yD, simulador);
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean verificaPadre(int xD, int yD, Simulador simulador){
+        CrazyPiece pecaATestar = simulador.pecaNaPosicao(xD - 1, yD -1);
+        if(pecaATestar == null || pecaATestar.getIdTipo() != 3 || (pecaATestar.getIdTipo() == 1 && pecaATestar.getIdEquipa() == this.idEquipa) ){
+            pecaATestar = simulador.pecaNaPosicao(xD, yD - 1);
+            if(pecaATestar == null || pecaATestar.getIdTipo() != 3 || (pecaATestar.getIdTipo() == 1 && pecaATestar.getIdEquipa() == this.idEquipa)){
+                pecaATestar = simulador.pecaNaPosicao(xD + 1, yD -1);
+                if(pecaATestar == null || pecaATestar.getIdTipo() != 3 || (pecaATestar.getIdTipo() == 1 && pecaATestar.getIdEquipa() == this.idEquipa)) {
+                    pecaATestar = simulador.pecaNaPosicao(xD + 1, yD);
+                    if(pecaATestar == null || pecaATestar.getIdTipo() != 3 || (pecaATestar.getIdTipo() == 1 && pecaATestar.getIdEquipa() == this.idEquipa)){
+                        pecaATestar = simulador.pecaNaPosicao(xD + 1, yD + 1);
+                        if(pecaATestar == null || pecaATestar.getIdTipo() != 3 || (pecaATestar.getIdTipo() == 1 && pecaATestar.getIdEquipa() == this.idEquipa)){
+                            pecaATestar = simulador.pecaNaPosicao(xD, yD + 1);
+                            if(pecaATestar == null || pecaATestar.getIdTipo() != 3 || (pecaATestar.getIdTipo() == 1 && pecaATestar.getIdEquipa() == this.idEquipa)){
+                                pecaATestar = simulador.pecaNaPosicao(xD - 1, yD + 1);
+                                if(pecaATestar == null || pecaATestar.getIdTipo() != 3 || (pecaATestar.getIdTipo() == 1 && pecaATestar.getIdEquipa() == this.idEquipa)){
+                                    pecaATestar = simulador.pecaNaPosicao(xD + 1, yD);
+                                    if(pecaATestar == null || pecaATestar.getIdTipo() != 3 || (pecaATestar.getIdTipo() == 1 && pecaATestar.getIdEquipa() == this.idEquipa)){
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -150,7 +179,7 @@ public class RainhaMae extends CrazyPiece {
     @Override
     public String toString() {
       //  if (this.capturada) {
-            return (this.id + " " + this.idEquipa + " 7 " + this.alcunha + " " + this.movimentos);
+            return (this.id + " " + this.idEquipa + " 7 " + this.alcunha + " | " + this.movimentos);
       //  }
       //  return (this.id + " | Rainha Mãe | 7 | " + this.idEquipa + " | " + this.alcunha + " @ " + this.posicao);
     }
