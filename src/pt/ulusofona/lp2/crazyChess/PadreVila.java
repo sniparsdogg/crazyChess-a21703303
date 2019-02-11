@@ -102,7 +102,7 @@ public class PadreVila extends CrazyPiece {
         if (this.capturada) {
             return (this.id + "| Padre da Vila | 3 | " + this.idEquipa + " | " + this.alcunha + " @ (n/a)");
         }
-        return (this.id + " | Padre da Vila | 3 | " + this.idEquipa + " | " + this.alcunha + " @ " + this.posicao);
+        return (this.id + " | Padre da Vila | 3 | " + this.idEquipa + " | " + this.alcunha + " @ (" + this.posicao + ")");
     }
 
     public String getImagePNG(){ // Getter da imagem.

@@ -140,7 +140,7 @@ public class Rainha extends CrazyPiece {
         if (this.capturada) {
             return (this.id + "| Rainha | 8 | " + this.idEquipa + " | " + this.alcunha + " @ (n/a)");
         }
-        return (this.id + " | Rainha | 8 | " + this.idEquipa + " | " + this.alcunha + " @ " + this.posicao);
+        return (this.id + " | Rainha | 8 | " + this.idEquipa + " | " + this.alcunha + " @ (" + this.posicao + ")");
     }
 
     public String getImagePNG(){ // Getter da imagem.

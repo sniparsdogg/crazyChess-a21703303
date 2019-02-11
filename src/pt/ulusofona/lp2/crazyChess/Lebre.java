@@ -28,7 +28,7 @@ public class Lebre extends CrazyPiece {
         if (this.capturada) {
             return (this.id + "| Lebre | 2 | " + this.idEquipa + " | " + this.alcunha + " @ (n/a)");
         }
-        return (this.id + " | Lebre  | 2 | " + this.idEquipa + " | " + this.alcunha + " @ " + this.posicao);
+        return (this.id + " | Lebre  | 2 | " + this.idEquipa + " | " + this.alcunha + " @ (" + this.posicao + ")");
     }
 
     public String getImagePNG(){ // Getter da imagem.

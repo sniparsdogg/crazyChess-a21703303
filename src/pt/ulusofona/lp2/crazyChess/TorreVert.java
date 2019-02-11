@@ -45,7 +45,7 @@ public class TorreVert extends CrazyPiece {
         if (this.capturada) {
             return (this.id + "| TorreV | 3 | " + this.idEquipa + " | " + this.alcunha + " @ (n/a)");
         }
-        return (this.id + " | TorreV | 3 | " + this.idEquipa + " | " + this.alcunha + " @ " + this.posicao);
+        return (this.id + " | TorreV | 3 | " + this.idEquipa + " | " + this.alcunha + " @ (" + this.posicao + ")");
     }
 
     public String getImagePNG(){ // Getter da imagem.

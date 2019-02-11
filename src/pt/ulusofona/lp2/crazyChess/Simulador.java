@@ -430,13 +430,13 @@ public class Simulador {
         }
         resultadoFinal.add("---");
         resultadoFinal.add("Equipa das Pretas");
-        resultadoFinal.add("Capturas: " + Integer.toString(resultados.getCapturasPretas()));
-        resultadoFinal.add("Jogadas válidas: " + Integer.toString(resultados.getValidasPretas()));
-        resultadoFinal.add("Tentativas inválidas: " + String.valueOf(resultados.getInvalidasPretas()));
+        resultadoFinal.add(" Capturas: " + Integer.toString(resultados.getCapturasPretas()));
+        resultadoFinal.add(" Jogadas válidas: " + Integer.toString(resultados.getValidasPretas()));
+        resultadoFinal.add(" Tentativas inválidas: " + String.valueOf(resultados.getInvalidasPretas()));
         resultadoFinal.add("Equipa das Brancas");
-        resultadoFinal.add("Capturas: " + String.valueOf(resultados.getCapturasBrancas()));
-        resultadoFinal.add("Jogadas válidas: " + String.valueOf(resultados.getValidasBrancas()));
-        resultadoFinal.add("Tentativas inválidas: " + String.valueOf(resultados.getInvalidasBrancas()));
+        resultadoFinal.add(" Capturas: " + String.valueOf(resultados.getCapturasBrancas()));
+        resultadoFinal.add(" Jogadas válidas: " + String.valueOf(resultados.getValidasBrancas()));
+        resultadoFinal.add(" Tentativas inválidas: " + String.valueOf(resultados.getInvalidasBrancas()));
         return resultadoFinal;
 
     }
