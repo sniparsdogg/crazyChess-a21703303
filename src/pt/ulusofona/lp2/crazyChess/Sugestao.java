@@ -24,6 +24,9 @@ public class Sugestao implements Comparable<Sugestao>{
 
     @Override
     public String toString(){
+        if(pontos == 1000){
+            return(x+ ", " + y + ", (infinito)");
+        }
         return(x + ", " + y + ", " + pontos);
     }
 }
