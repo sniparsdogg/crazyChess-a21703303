@@ -28,7 +28,7 @@ public class Rei extends CrazyPiece {
         if (this.capturada) {
             return (this.id + "| Rei | (infinito) | " + this.idEquipa + " | " + this.alcunha + " @ (n/a)");
         }
-        return (this.id + "| Rei | (infinito) | " + this.idEquipa + " | " + this.alcunha + " @ " + this.posicao);
+        return (this.id + "| Rei | (infinito) | " + this.idEquipa + " | " + this.alcunha + " @ (" + this.posicao + ")");
     }
 
     @Override

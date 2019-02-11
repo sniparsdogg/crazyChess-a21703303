@@ -123,7 +123,7 @@ public class Joker extends CrazyPiece {
         if(capturada) {
             return (id + " | " + idTipo + "/" + nomeTipoJoker() + " | 4 | " + idEquipa + " | " + alcunha + " @ (n/a)");
         }
-        return (id + " | " + idTipo + "/" + nomeTipoJoker() + " | 4 | " + idEquipa + " | " + alcunha + " @ (" + posicao + ")");
+        return (id + " | Joker/" + nomeTipoJoker() + " | 4 | " + idEquipa + " | " + alcunha + " @ (" + posicao + ")");
     }
 
     public String getImagePNG(){ // Getter da imagem.
