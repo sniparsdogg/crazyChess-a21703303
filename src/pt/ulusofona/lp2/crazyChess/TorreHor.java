@@ -7,26 +7,26 @@ public class TorreHor extends CrazyPiece {
             if (xD == xO && yD == yO || (xD < 0 || xD > simulador.getTamanhoTabuleiro() - 1) || (yD < 0 || yD > simulador.getTamanhoTabuleiro() - 1) ) {
                 return false;
             }
-            for (int i = 0; i < simulador.getPecasMalucas().size(); i++) {
-                if (simulador.getPecasMalucas().get(i).getPosicao().x == xD && simulador.getPecasMalucas().get(i).getPosicao().y == yD && simulador.getPecasMalucas().get(i).getIdEquipa() == this.idEquipa) {
+            for (int i = 0; i < simulador.getPecasEmJogo().size(); i++) {
+                if (simulador.getPecasEmJogo().get(i).getPosicao().x == xD && simulador.getPecasEmJogo().get(i).getPosicao().y == yD && simulador.getPecasEmJogo().get(i).getIdEquipa() == this.idEquipa) {
                     return false;
                 }
             }
             if(xD < xO){
-                for(int i = 0; i < simulador.getPecasMalucas().size(); i++){
-                    if(simulador.getPecasMalucas().get(i).getPosicao().x < xO && simulador.getPecasMalucas().get(i).getPosicao().x > xD  && simulador.getPecasMalucas().get(i).getPosicao().y == yD){
+                for(int i = 0; i < simulador.getPecasEmJogo().size(); i++){
+                    if(simulador.getPecasEmJogo().get(i).getPosicao().x < xO && simulador.getPecasEmJogo().get(i).getPosicao().x > xD  && simulador.getPecasEmJogo().get(i).getPosicao().y == yD){
                         return false;
                     }
                 }
             } else if (xD > xO) {
-                for(int i = 0; i < simulador.getPecasMalucas().size(); i++){
-                    if(simulador.getPecasMalucas().get(i).getPosicao().x > xO && simulador.getPecasMalucas().get(i).getPosicao().x < xD  && simulador.getPecasMalucas().get(i).getPosicao().y == yD){
+                for(int i = 0; i < simulador.getPecasEmJogo().size(); i++){
+                    if(simulador.getPecasEmJogo().get(i).getPosicao().x > xO && simulador.getPecasEmJogo().get(i).getPosicao().x < xD  && simulador.getPecasEmJogo().get(i).getPosicao().y == yD){
                         return false;
                     }
                 }
             } else {
-                for (int i = 0; i < simulador.getPecasMalucas().size(); i++){
-                    if(simulador.getPecasMalucas().get(i).getPosicao().x == xD && simulador.getPecasMalucas().get(i).getPosicao().y == yD && simulador.getPecasMalucas().get(i).getIdEquipa() == this.idEquipa){
+                for (int i = 0; i < simulador.getPecasEmJogo().size(); i++){
+                    if(simulador.getPecasEmJogo().get(i).getPosicao().x == xD && simulador.getPecasEmJogo().get(i).getPosicao().y == yD && simulador.getPecasEmJogo().get(i).getIdEquipa() == this.idEquipa){
                         return false;
                     }
                 }

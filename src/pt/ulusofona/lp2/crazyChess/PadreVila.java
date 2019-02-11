@@ -8,14 +8,14 @@ public class PadreVila extends CrazyPiece {
                 if ((xD == xO && yD == yO) || (xD < 0 || xD > simulador.getTamanhoTabuleiro() - 1) || (yD < 0 || yD > simulador.getTamanhoTabuleiro() - 1) ) {
                     return false;
                 }
-                for (int count = 0; count < simulador.getPecasMalucas().size(); count++) {
-                    if (simulador.getPecasMalucas().get(count).getPosicao().x == xD && simulador.getPecasMalucas().get(count).getPosicao().y == yD && simulador.getPecasMalucas().get(count).getIdEquipa() == this.idEquipa) {
+                for (int count = 0; count < simulador.getPecasEmJogo().size(); count++) {
+                    if (simulador.getPecasEmJogo().get(count).getPosicao().x == xD && simulador.getPecasEmJogo().get(count).getPosicao().y == yD && simulador.getPecasEmJogo().get(count).getIdEquipa() == this.idEquipa) {
                         return false;
                     }
                 }
                 if(i >= 2){
                     if(xO - i == xD && yO - i == yD) { // diagonal noroeste
-                        for(int j = 0; j < simulador.getPecasMalucas().size(); j++){
+                        for(int j = 0; j < simulador.getPecasEmJogo().size(); j++){
                             for (int f = 1; f < i; f++) {
                                 CrazyPiece pecaAComparar = simulador.pecaNaPosicao(xO - f, yO - f);
                                 if (pecaAComparar != null) {
@@ -25,7 +25,7 @@ public class PadreVila extends CrazyPiece {
                         }
                         return(verificaRainha(xD, yD, simulador));
                     } else if(xO + i == xD && yO - i == yD) { // diagonal nordeste
-                        for(int j = 0; j < simulador.getPecasMalucas().size(); j++){
+                        for(int j = 0; j < simulador.getPecasEmJogo().size(); j++){
                             for (int f = 1; f < i; f++) {
                                 CrazyPiece pecaAComparar = simulador.pecaNaPosicao(xO + f, yO - f);
                                 if (pecaAComparar != null) {
@@ -35,7 +35,7 @@ public class PadreVila extends CrazyPiece {
                         }
                         return(verificaRainha(xD, yD, simulador));
                     } else if(xO - i == xD && yO + i == yD) { // diagonal sudoeste
-                        for(int j = 0; j < simulador.getPecasMalucas().size(); j++){
+                        for(int j = 0; j < simulador.getPecasEmJogo().size(); j++){
                             for (int f = 1; f < i; f++) {
                                 CrazyPiece pecaAComparar = simulador.pecaNaPosicao(xO - f, yO + f);
                                 if (pecaAComparar != null) {
@@ -45,7 +45,7 @@ public class PadreVila extends CrazyPiece {
                         }
                         return(verificaRainha(xD, yD, simulador));
                     } else if(xO + i == xD && yO + i == yD) { // diagonal sudeste
-                        for(int j = 0; j < simulador.getPecasMalucas().size(); j++){
+                        for(int j = 0; j < simulador.getPecasEmJogo().size(); j++){
                             for (int f = 1; f < i; f++) {
                                 CrazyPiece pecaAComparar = simulador.pecaNaPosicao(xO + f, yO + f);
                                 if (pecaAComparar != null) {

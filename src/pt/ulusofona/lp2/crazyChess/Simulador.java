@@ -147,13 +147,13 @@ public class Simulador {
                 String coluna4[] = linha2.split(":");
                 for (int j = 0; j < tamanho; j++) {
                     if (!(Integer.parseInt(coluna4[j]) == 0)) {
-                        for (int k = 0; k < getPecasMalucas().size(); k++) {
-                            if (Integer.parseInt(coluna4[j]) == getPecasMalucas().get(k).getId()) {
-                                getPecasMalucas().get(k).setPosicao(j, i);
-                                if (getPecasMalucas().get(k).getIdEquipa() == 10) {
-                                    pecasPretas.add(getPecasMalucas().get(k));
+                        for (int k = 0; k < getPecasEmJogo().size(); k++) {
+                            if (Integer.parseInt(coluna4[j]) == getPecasEmJogo().get(k).getId()) {
+                                getPecasEmJogo().get(k).setPosicao(j, i);
+                                if (getPecasEmJogo().get(k).getIdEquipa() == 10) {
+                                    pecasPretas.add(getPecasEmJogo().get(k));
                                 } else {
-                                    pecasBrancas.add(getPecasMalucas().get(k));
+                                    pecasBrancas.add(getPecasEmJogo().get(k));
                                 }
                             }
                         }
@@ -192,15 +192,15 @@ public class Simulador {
 
     public boolean processaJogada(int xO, int yO, int xD, int yD){
 
-            for (int i = 0; i < getPecasMalucas().size(); i++){
-                if(getPecasMalucas().get(i).posicao.x == xO && getPecasMalucas().get(i).posicao.y == yO && getPecasMalucas().get(i).getIdEquipa() == getIDEquipaAJogar()){
-                            CrazyPiece pecaAJogar = getPecasMalucas().get(i);
+            for (int i = 0; i < getPecasEmJogo().size(); i++){
+                if(getPecasEmJogo().get(i).posicao.x == xO && getPecasEmJogo().get(i).posicao.y == yO && getPecasEmJogo().get(i).getIdEquipa() == getIDEquipaAJogar()){
+                            CrazyPiece pecaAJogar = getPecasEmJogo().get(i);
                             if(pecaAJogar.jogadaValida(xO, xD, yO, yD, this)){
                                 gravarJogo(undo);
-                                for (int j = 0; j < getPecasMalucas().size(); j++) {
-                                    CrazyPiece pecaJ = getPecasMalucas().get(j);
+                                for (int j = 0; j < getPecasEmJogo().size(); j++) {
+                                    CrazyPiece pecaJ = getPecasEmJogo().get(j);
                                         if (pecaJ.posicao.x == xD && pecaJ.posicao.y == yD && pecaJ.getIdEquipa() != getIDEquipaAJogar()) {
-                                            if(getPecasMalucas().get(j).getIdEquipa() == 10) {
+                                            if(getPecasEmJogo().get(j).getIdEquipa() == 10) {
                                                 for(int k = 0; k < getPecasPretas().size(); k++){
                                                     if(pecaJ.getId() == (getPecasPretas().get(k).getId())){
                                                         getPecasPretas().remove(k);
@@ -210,7 +210,7 @@ public class Simulador {
                                             }
                                             else {
                                                 for(int k = 0; k < getPecasBrancas().size(); k++) {
-                                                    if(getPecasMalucas().get(j).getId() == (getPecasBrancas().get(k).getId())){
+                                                    if(getPecasEmJogo().get(j).getId() == (getPecasBrancas().get(k).getId())){
                                                         getPecasBrancas().remove(k);
                                                         resultados.somaCapturasPretas();
                                                     }
@@ -228,9 +228,9 @@ public class Simulador {
                                         resultados.somaValidasBrancas();
                                     }
                                     pecaAJogar.somaMoveValidos();
-                                    for(int k = 0; k < getPecasMalucas().size();k++) {
-                                        if(pecaAJogar.getId() == getPecasMalucas().get(k).getId()) {
-                                            getPecasMalucas().get(k).setPosicao(xD, yD);
+                                    for(int k = 0; k < getPecasEmJogo().size();k++) {
+                                        if(pecaAJogar.getId() == getPecasEmJogo().get(k).getId()) {
+                                            getPecasEmJogo().get(k).setPosicao(xD, yD);
                                         }
                                     }
                                     turno++;
@@ -240,9 +240,9 @@ public class Simulador {
                                     if(capturaEfectuada) {
                                         turnosSemCapturas++;
                                     }
-                                    for(int count = 0; count < getPecasMalucas().size(); count++){
-                                        if(getPecasMalucas().get(count).getJoker() == true){
-                                            getPecasMalucas().get(count).incrementaTipoJoker();
+                                    for(int count = 0; count < getPecasEmJogo().size(); count++){
+                                        if(getPecasEmJogo().get(count).getJoker() == true){
+                                            getPecasEmJogo().get(count).incrementaTipoJoker();
                                         }
                                     }
 
@@ -260,7 +260,7 @@ public class Simulador {
         return false;
     }
 
-    public List<CrazyPiece> getPecasMalucas(){ // Devolve as peças.
+    public List<CrazyPiece> getPecasEmJogo(){
         ArrayList<CrazyPiece> pecasEmJogo = new ArrayList<CrazyPiece>();
         for(int i = 0; i < pecas.size();i++) {
             if(!(pecas.get(i).getCapturada())) {
@@ -268,6 +268,10 @@ public class Simulador {
             }
         }
         return pecasEmJogo;
+    }
+
+    public List<CrazyPiece> getPecasMalucas(){ // Devolve as peças.
+        return pecas;
     }
 
     public List<CrazyPiece> getPecasBrancas(){
@@ -321,9 +325,9 @@ public class Simulador {
     public List<Comparable> obterSugestoesJogada(int xO, int yO){
         ArrayList<Comparable> sugestoes = new ArrayList<Comparable>();
         CrazyPiece pecaASugerir = null;
-        for(int i = 0; i < getPecasMalucas().size(); i++) {
-            if(getPecasMalucas().get(i).getPosicao().x == xO && getPecasMalucas().get(i).getPosicao().y == yO){
-                pecaASugerir = getPecasMalucas().get(i);
+        for(int i = 0; i < getPecasEmJogo().size(); i++) {
+            if(getPecasEmJogo().get(i).getPosicao().x == xO && getPecasEmJogo().get(i).getPosicao().y == yO){
+                pecaASugerir = getPecasEmJogo().get(i);
             }
         }
         if(pecaASugerir == null || pecaASugerir.getIdEquipa() != getIDEquipaAJogar()) {
@@ -347,9 +351,9 @@ public class Simulador {
 
     public CrazyPiece pecaNaPosicao(int posX, int posY){
         CrazyPiece pecaPosicao = null;
-        for(int i = 0; i < getPecasMalucas().size(); i++) {
-            if(getPecasMalucas().get(i).getPosicao().x == posX && getPecasMalucas().get(i).getPosicao().y == posY){
-                 pecaPosicao = getPecasMalucas().get(i);
+        for(int i = 0; i < getPecasEmJogo().size(); i++) {
+            if(getPecasEmJogo().get(i).getPosicao().x == posX && getPecasEmJogo().get(i).getPosicao().y == posY){
+                 pecaPosicao = getPecasEmJogo().get(i);
             }
         }
         return pecaPosicao;
@@ -364,24 +368,24 @@ public class Simulador {
             writer.write(String.valueOf(this.getTamanhoTabuleiro()));
             System.out.println(this.getTamanhoTabuleiro());
             writer.write(newLine);
-            writer.write(String.valueOf(this.getPecasMalucas().size()));
+            writer.write(String.valueOf(this.getPecasEmJogo().size()));
             writer.write(newLine);
 
             int[][] tabuleiro = new int[getTamanhoTabuleiro()][getTamanhoTabuleiro()];
-            for(int i = 0; i < getPecasMalucas().size(); i++) {
-                writer.write(String.valueOf(getPecasMalucas().get(i).getId()));
+            for(int i = 0; i < getPecasEmJogo().size(); i++) {
+                writer.write(String.valueOf(getPecasEmJogo().get(i).getId()));
                 writer.write(":");
-                if(getPecasMalucas().get(i).getJoker()) {
+                if(getPecasEmJogo().get(i).getJoker()) {
                     writer.write("7");
                 } else {
-                    writer.write(String.valueOf(getPecasMalucas().get(i).getIdTipo()));
+                    writer.write(String.valueOf(getPecasEmJogo().get(i).getIdTipo()));
                 }
                 writer.write(":");
-                writer.write(String.valueOf(getPecasMalucas().get(i).getIdEquipa()));
+                writer.write(String.valueOf(getPecasEmJogo().get(i).getIdEquipa()));
                 writer.write(":");
-                writer.write(String.valueOf(getPecasMalucas().get(i).getAlcunha()));
+                writer.write(String.valueOf(getPecasEmJogo().get(i).getAlcunha()));
                 writer.write(newLine);
-                tabuleiro[getPecasMalucas().get(i).getPosicao().y][getPecasMalucas().get(i).getPosicao().x] = getPecasMalucas().get(i).getId();
+                tabuleiro[getPecasEmJogo().get(i).getPosicao().y][getPecasEmJogo().get(i).getPosicao().x] = getPecasEmJogo().get(i).getId();
             }
 
             for(int i = 0; i < getTamanhoTabuleiro(); i++) {
@@ -532,9 +536,9 @@ public class Simulador {
 
 
     public int getIDPeca (int x, int y){ // Obtém o ID da peça nas coordenadas dadas.
-        for (int i = 0; i < getPecasMalucas().size(); i++){
-            if(getPecasMalucas().get(i).posicao.x == x && getPecasMalucas().get(i).posicao.y == y){
-                return getPecasMalucas().get(i).getId();
+        for (int i = 0; i < getPecasEmJogo().size(); i++){
+            if(getPecasEmJogo().get(i).posicao.x == x && getPecasEmJogo().get(i).posicao.y == y){
+                return getPecasEmJogo().get(i).getId();
             }
         }
 
