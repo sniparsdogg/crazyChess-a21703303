@@ -64,8 +64,11 @@ public class Rainha extends CrazyPiece {
 
                 } else if (xO + count == xD && yO - count == yD) { // diagonal nordeste
                     for (int i = 0; i < simulador.getPecasMalucas().size(); i++) {
-                        if ((simulador.getPecasMalucas().get(i).getPosicao().x > xO && simulador.getPecasMalucas().get(i).getPosicao().x < xD) && (simulador.getPecasMalucas().get(i).getPosicao().y < yO && simulador.getPecasMalucas().get(i).getPosicao().y > yD)) {
-                            return false;
+                        for (int f = 1; f < count; f++) {
+                            CrazyPiece pecaAComparar = simulador.pecaNaPosicao(xO + f, yO - f);
+                            if (pecaAComparar != null) {
+                                return false;
+                            }
                         }
                     }
                     for (int i = 0; i < simulador.getPecasMalucas().size(); i++) {
@@ -77,8 +80,11 @@ public class Rainha extends CrazyPiece {
 
                 } else if (xO - count == xD && yO - count == yD) { // diagonal noroeste
                     for (int i = 0; i < simulador.getPecasMalucas().size(); i++) {
-                        if ((simulador.getPecasMalucas().get(i).getPosicao().x < xO && simulador.getPecasMalucas().get(i).getPosicao().x > xD) && (simulador.getPecasMalucas().get(i).getPosicao().y < yO && simulador.getPecasMalucas().get(i).getPosicao().y > yD)) {
-                            return false;
+                        for (int f = 1; f < count; f++) {
+                            CrazyPiece pecaAComparar = simulador.pecaNaPosicao(xO - f, yO - f);
+                            if (pecaAComparar != null) {
+                                return false;
+                            }
                         }
                     }
                     for (int i = 0; i < simulador.getPecasMalucas().size(); i++) {
@@ -90,8 +96,11 @@ public class Rainha extends CrazyPiece {
 
                 } else if (xO + count == xD && yO + count == yD) { // diagonal sudeste
                     for (int i = 0; i < simulador.getPecasMalucas().size(); i++) {
-                        if ((simulador.getPecasMalucas().get(i).getPosicao().x > xO && simulador.getPecasMalucas().get(i).getPosicao().x < xD) && (simulador.getPecasMalucas().get(i).getPosicao().y > yO && simulador.getPecasMalucas().get(i).getPosicao().y < yD)) {
-                            return false;
+                        for (int f = 1; f < count; f++) {
+                            CrazyPiece pecaAComparar = simulador.pecaNaPosicao(xO + f, yO + f);
+                            if (pecaAComparar != null) {
+                                return false;
+                            }
                         }
                     }
                     for (int i = 0; i < simulador.getPecasMalucas().size(); i++) {
@@ -103,8 +112,11 @@ public class Rainha extends CrazyPiece {
 
                 } else if (xO - count == xD && yO + count == yD) { // diagonal sudoeste
                     for (int i = 0; i < simulador.getPecasMalucas().size(); i++) {
-                        if ((simulador.getPecasMalucas().get(i).getPosicao().x < xO && simulador.getPecasMalucas().get(i).getPosicao().x > xD) && (simulador.getPecasMalucas().get(i).getPosicao().y > yO && simulador.getPecasMalucas().get(i).getPosicao().y < yD)) {
-                            return false;
+                        for (int f = 1; f < count; f++) {
+                            CrazyPiece pecaAComparar = simulador.pecaNaPosicao(xO - f, yO + f);
+                            if (pecaAComparar != null) {
+                                return false;
+                            }
                         }
                     }
                     for (int i = 0; i < simulador.getPecasMalucas().size(); i++) {

@@ -16,29 +16,41 @@ public class PadreVila extends CrazyPiece {
                 if(i >= 2){
                     if(xO - i == xD && yO - i == yD) { // diagonal noroeste
                         for(int j = 0; j < simulador.getPecasMalucas().size(); j++){
-                            if((simulador.getPecasMalucas().get(j).getPosicao().x < xO && simulador.getPecasMalucas().get(j).getPosicao().x > xD) && (simulador.getPecasMalucas().get(j).getPosicao().y < yO && simulador.getPecasMalucas().get(j).getPosicao().y > yD)){
-                                return false;
+                            for (int f = 1; f < i; f++) {
+                                CrazyPiece pecaAComparar = simulador.pecaNaPosicao(xO - f, yO - f);
+                                if (pecaAComparar != null) {
+                                    return false;
+                                }
                             }
                         }
                         return(verificaRainha(xD, yD, simulador));
                     } else if(xO + i == xD && yO - i == yD) { // diagonal nordeste
                         for(int j = 0; j < simulador.getPecasMalucas().size(); j++){
-                            if((simulador.getPecasMalucas().get(j).getPosicao().x > xO && simulador.getPecasMalucas().get(j).getPosicao().x < xD) && (simulador.getPecasMalucas().get(j).getPosicao().y < yO && simulador.getPecasMalucas().get(j).getPosicao().y > yD)){
-                                return false;
+                            for (int f = 1; f < i; f++) {
+                                CrazyPiece pecaAComparar = simulador.pecaNaPosicao(xO + f, yO - f);
+                                if (pecaAComparar != null) {
+                                    return false;
+                                }
                             }
                         }
                         return(verificaRainha(xD, yD, simulador));
                     } else if(xO - i == xD && yO + i == yD) { // diagonal sudoeste
                         for(int j = 0; j < simulador.getPecasMalucas().size(); j++){
-                            if((simulador.getPecasMalucas().get(j).getPosicao().x < xO && simulador.getPecasMalucas().get(j).getPosicao().x > xD) && (simulador.getPecasMalucas().get(j).getPosicao().y > yO && simulador.getPecasMalucas().get(j).getPosicao().y < yD)){
-                                return false;
+                            for (int f = 1; f < i; f++) {
+                                CrazyPiece pecaAComparar = simulador.pecaNaPosicao(xO - f, yO + f);
+                                if (pecaAComparar != null) {
+                                    return false;
+                                }
                             }
                         }
                         return(verificaRainha(xD, yD, simulador));
                     } else if(xO + i == xD && yO + i == yD) { // diagonal sudeste
                         for(int j = 0; j < simulador.getPecasMalucas().size(); j++){
-                            if((simulador.getPecasMalucas().get(j).getPosicao().x > xO && simulador.getPecasMalucas().get(j).getPosicao().x < xD) && (simulador.getPecasMalucas().get(j).getPosicao().y > yO && simulador.getPecasMalucas().get(j).getPosicao().y < yD)){
-                                return false;
+                            for (int f = 1; f < i; f++) {
+                                CrazyPiece pecaAComparar = simulador.pecaNaPosicao(xO + f, yO + f);
+                                if (pecaAComparar != null) {
+                                    return false;
+                                }
                             }
                         }
                         return(verificaRainha(xD, yD, simulador));
