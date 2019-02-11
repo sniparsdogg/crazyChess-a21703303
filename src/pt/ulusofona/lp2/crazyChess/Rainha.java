@@ -12,7 +12,7 @@ public class Rainha extends CrazyPiece {
                     return false;
                 }
             }
-            for (int count = 0; count < 5; count++) {
+            for (int count = 0; count <= 5; count++) {
                 if (xO + count == xD && yO == yD) { // horizontal este
                     for (int i = 0; i < simulador.getPecasMalucas().size(); i++) {
                         if (simulador.getPecasMalucas().get(i).getPosicao().x > xO && simulador.getPecasMalucas().get(i).getPosicao().x < xD && simulador.getPecasMalucas().get(i).getPosicao().y == yD) {
