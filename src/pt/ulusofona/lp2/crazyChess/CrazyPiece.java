@@ -14,11 +14,15 @@ public abstract class CrazyPiece {
     int pontos = 0;
     int moveValidos = 0;
     int moveInvalidos = 0;
+    Integer turnoMovido;
 
     CrazyPiece(){
 
     }
 
+    public int getTurnoMovido(){
+        return this.turnoMovido;
+    }
 
     public int getId(){ // Getter do ID.
         return id;
@@ -102,6 +106,9 @@ public abstract class CrazyPiece {
         return alcunha;
     }
 
+    public void setTurnoMovido(){
+
+    }
 
     public void setCapturada() { // Setter do estado de captura da peça.
         capturada = true;

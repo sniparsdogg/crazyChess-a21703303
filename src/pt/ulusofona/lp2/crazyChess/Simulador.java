@@ -191,66 +191,66 @@ public class Simulador {
     } // Função que permite obter o tamanho do tabuleiro.
 
     public boolean processaJogada(int xO, int yO, int xD, int yD){
-
-            for (int i = 0; i < getPecasEmJogo().size(); i++){
-                if(getPecasEmJogo().get(i).posicao.x == xO && getPecasEmJogo().get(i).posicao.y == yO && getPecasEmJogo().get(i).getIdEquipa() == getIDEquipaAJogar()){
-                            CrazyPiece pecaAJogar = getPecasEmJogo().get(i);
-                            if(pecaAJogar.jogadaValida(xO, xD, yO, yD, this)){
-                                gravarJogo(undo);
-                                for (int j = 0; j < getPecasEmJogo().size(); j++) {
-                                    CrazyPiece pecaJ = getPecasEmJogo().get(j);
-                                        if (pecaJ.posicao.x == xD && pecaJ.posicao.y == yD && pecaJ.getIdEquipa() != getIDEquipaAJogar()) {
-                                            if(getPecasEmJogo().get(j).getIdEquipa() == 10) {
-                                                for(int k = 0; k < getPecasPretas().size(); k++){
-                                                    if(pecaJ.getId() == (getPecasPretas().get(k).getId())){
-                                                        getPecasPretas().remove(k);
-                                                        resultados.somaCapturasBrancas();
-                                                    }
-                                                }
+            if((xD + yD) > 5 ) {
+                for (int i = 0; i < getPecasEmJogo().size(); i++) {
+                    if (getPecasEmJogo().get(i).posicao.x == xO && getPecasEmJogo().get(i).posicao.y == yO && getPecasEmJogo().get(i).getIdEquipa() == getIDEquipaAJogar()) {
+                        CrazyPiece pecaAJogar = getPecasEmJogo().get(i);
+                        if (pecaAJogar.jogadaValida(xO, xD, yO, yD, this)) {
+                            gravarJogo(undo);
+                            for (int j = 0; j < getPecasEmJogo().size(); j++) {
+                                CrazyPiece pecaJ = getPecasEmJogo().get(j);
+                                if (pecaJ.posicao.x == xD && pecaJ.posicao.y == yD && pecaJ.getIdEquipa() != getIDEquipaAJogar()) {
+                                    if (getPecasEmJogo().get(j).getIdEquipa() == 10) {
+                                        for (int k = 0; k < getPecasPretas().size(); k++) {
+                                            if (pecaJ.getId() == (getPecasPretas().get(k).getId())) {
+                                                getPecasPretas().remove(k);
+                                                resultados.somaCapturasBrancas();
                                             }
-                                            else {
-                                                for(int k = 0; k < getPecasBrancas().size(); k++) {
-                                                    if(getPecasEmJogo().get(j).getId() == (getPecasBrancas().get(k).getId())){
-                                                        getPecasBrancas().remove(k);
-                                                        resultados.somaCapturasPretas();
-                                                    }
-                                                }
-                                            }
-                                            pecaJ.setCapturada();
-                                            turnosSemCapturas = 0;
-                                            pecaAJogar.somaCapturas();
-                                            pecaAJogar.somaPontos(pecaJ.getValorRelativo());
                                         }
-                                    }
-                                    if(getIDEquipaAJogar() == 10) {
-                                        resultados.somaValidasPretas();
                                     } else {
-                                        resultados.somaValidasBrancas();
-                                    }
-                                    pecaAJogar.somaMoveValidos();
-                                    for(int k = 0; k < getPecasEmJogo().size();k++) {
-                                        if(pecaAJogar.getId() == getPecasEmJogo().get(k).getId()) {
-                                            getPecasEmJogo().get(k).setPosicao(xD, yD);
+                                        for (int k = 0; k < getPecasBrancas().size(); k++) {
+                                            if (getPecasEmJogo().get(j).getId() == (getPecasBrancas().get(k).getId())) {
+                                                getPecasBrancas().remove(k);
+                                                resultados.somaCapturasPretas();
+                                            }
                                         }
                                     }
-                                    turno++;
-                                    if(!capturaEfectuada) {
-                                        capturaEfectuada = true;
-                                    }
-                                    if(capturaEfectuada) {
-                                        turnosSemCapturas++;
-                                    }
-                                    for(int count = 0; count < getPecasEmJogo().size(); count++){
-                                        if(getPecasEmJogo().get(count).getJoker() == true){
-                                            getPecasEmJogo().get(count).incrementaTipoJoker();
-                                        }
-                                    }
-
-                                    return true;
+                                    pecaJ.setCapturada();
+                                    turnosSemCapturas = 0;
+                                    pecaAJogar.somaCapturas();
+                                    pecaAJogar.somaPontos(pecaJ.getValorRelativo());
+                                }
                             }
-                    pecaAJogar.somaMoveInvalidos();
-                }
+                            if (getIDEquipaAJogar() == 10) {
+                                resultados.somaValidasPretas();
+                            } else {
+                                resultados.somaValidasBrancas();
+                            }
+                            pecaAJogar.somaMoveValidos();
+                            for (int k = 0; k < getPecasEmJogo().size(); k++) {
+                                if (pecaAJogar.getId() == getPecasEmJogo().get(k).getId()) {
+                                    getPecasEmJogo().get(k).setPosicao(xD, yD);
+                                }
+                            }
+                            turno++;
+                            if (!capturaEfectuada) {
+                                capturaEfectuada = true;
+                            }
+                            if (capturaEfectuada) {
+                                turnosSemCapturas++;
+                            }
+                            for (int count = 0; count < getPecasEmJogo().size(); count++) {
+                                if (getPecasEmJogo().get(count).getJoker() == true) {
+                                    getPecasEmJogo().get(count).incrementaTipoJoker();
+                                }
+                            }
 
+                            return true;
+                        }
+                        pecaAJogar.somaMoveInvalidos();
+                    }
+
+                }
             }
         if(getIDEquipaAJogar() == 10) {
             resultados.somaInvalidasPretas();
@@ -422,6 +422,17 @@ public class Simulador {
         return true;
     }
 
+    public int nrPecasRealezaNosCantos() {
+        int query = 0;
+        for(int i = 0; i < getPecasEmJogo().size(); i++){
+            CrazyPiece pecaATestar = getPecasEmJogo().get(i);
+            if(((pecaATestar.getPosicao().x == 0 && pecaATestar.getPosicao().y == 0) || (pecaATestar.getPosicao().x == 0 && pecaATestar.getPosicao().y == getTamanhoTabuleiro()-1) || (pecaATestar.getPosicao().x == getTamanhoTabuleiro()-1 && pecaATestar.getPosicao().y == 0) || (pecaATestar.getPosicao().x == getTamanhoTabuleiro()-1 && pecaATestar.getPosicao().y == getTamanhoTabuleiro()-1)) && (getPecasEmJogo().get(i).getIdTipo() == 0 || getPecasEmJogo().get(i).getIdTipo() == 1 || getPecasEmJogo().get(i).getIdTipo() == 9)) {
+                query++;
+            }
+        }
+        return query;
+    }
+
     public List<String> getResultados(){
         ArrayList<String> resultadoFinal = new ArrayList<String>();
         resultadoFinal.add("JOGO DE CRAZY CHESS");
@@ -517,6 +528,13 @@ public class Simulador {
         return query;
     }
 
+    public List<String> defesa_segunda_epoca(){
+        List<String> query = new ArrayList<>();
+        pecas.stream()
+                .filter((p) -> p.turnoMovido != null)
+                .forEach((p) -> query.add(p.getId() + ":" + p.getAlcunha() + ":" + p.getTurnoMovido()));
+        return query;
+    }
 
 
 
@@ -529,6 +547,7 @@ public class Simulador {
         estatisticas.put("tiposPecaCapturados", tiposPecaCapturados());
         estatisticas.put("segundas-escolhas", segundasEscolhas());
         estatisticas.put("most-valuable-crazy-piece", mostValuableCrazyPiece());
+        estatisticas.put("defesa-2a-epoca", defesa_segunda_epoca());
         return estatisticas;
     }
 
